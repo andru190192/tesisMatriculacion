@@ -9,8 +9,8 @@
 	<ui:define name="content">
 		<p:panel id="panelPrincipal" header="Listado de Estudiantes">
 			<h:form id="busquedaTabla">
-				<p:dataTable id="tablaPersonas" var="persona" scrollable="true"
-					reflow="true" value="#{clienteBean.listaPersonasClientes}"
+				<p:dataTable id="tablaEstudiantes" var="estudiante" scrollable="true"
+					reflow="true" value="#{listadoEstudianteBean.listaPersonasClientes}"
 					paginator="true" rows="10"
 					paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
 					paginatorPosition="bottom"
