@@ -18,7 +18,7 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 
 @Entity
-@Table(name = "estudiantes")
+@Table(name = "estudiante")
 public class Estudiante implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -130,7 +130,7 @@ public class Estudiante implements Serializable {
 	}
 
 	@Pattern(regexp = "[0-9]{10}+|[0-9]{13}+", message = "LA CÉDULA DEL PADRE ACEPTA DE 10 A 13 DÍGITOS NUMÉRICOS")
-	@Column(nullable = false, length = 13)
+	@Column(name = "cedulapapa", nullable = false, length = 13)
 	public String getCedulaPapa() {
 		return cedulaPapa;
 	}
@@ -157,7 +157,7 @@ public class Estudiante implements Serializable {
 	}
 
 	@Pattern(regexp = "[0-9]{10}+|[0-9]{13}+", message = "LA CÉDULA DE LA MADRE ACEPTA DE 10 A 13 DÍGITOS NUMÉRICOS")
-	@Column(nullable = false, length = 13)
+	@Column(name = "cedulamama", nullable = false, length = 13)
 	public String getCedulaMama() {
 		return cedulaMama;
 	}

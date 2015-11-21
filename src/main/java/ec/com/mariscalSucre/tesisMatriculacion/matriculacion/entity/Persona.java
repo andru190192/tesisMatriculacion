@@ -22,7 +22,7 @@ import ec.com.mariscalSucre.tesisMatriculacion.seguridad.entity.Bitacora;
 import ec.com.mariscalSucre.tesisMatriculacion.seguridad.entity.RolUsuario;
 
 @Entity
-@Table(name = "personas")
+@Table(name = "persona")
 public class Persona implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -116,9 +116,8 @@ public class Persona implements Serializable {
 	}
 
 	@Id
-	@SequenceGenerator(allocationSize = 1, name = "PERSONA_personaId_GENERATOR", sequenceName = "PERSONA_personaId_SEQ")
-	// @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PERSONA_personaId_GENERATOR")
+	@SequenceGenerator(allocationSize = 1, name = "PERSONA_PERSONAID_GENERATOR", sequenceName = "PERSONA_PERSONAID_SEQ")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PERSONA_PERSONAID_GENERATOR")
 	@Column(name = "personaid", unique = true, nullable = false)
 	public Integer getId() {
 		return id;
