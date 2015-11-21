@@ -9,7 +9,62 @@
 	<ui:define name="content">
 		<p:panel id="panelPrincipal" header="Listado de Estudiantes">
 			<h:form id="busquedaTabla">
-				hola mundo
+				<p:dataTable id="tablaPersonas" var="persona" scrollable="true"
+					reflow="true" value="#{clienteBean.listaPersonasClientes}"
+					paginator="true" rows="10"
+					paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+					paginatorPosition="bottom"
+					rowStyleClass="#{persona.cliente.activo eq true ? null:'desactivo'}"
+					emptyMessage="#{msg['lbl.mensajeTabla']}">
+					<f:facet name="header">
+						<p:tooltip for="btnNuevo" value="#{msg['lbl.insertar']}" />
+						<p:commandButton update=":formNuevo"
+							oncomplete="mostarPanelInsertar('')"
+							action="#{clienteBean.cargarInsertar}" id="btnNuevo"
+							icon="#{msg['i.nuevo']}" />
+					</f:facet>
+					<p:column headerText="#{msg['lbl.gestionar']}">
+						<p:tooltip for="btnEditar" value="#{msg['lbl.editar']}" />
+						<p:tooltip for="btnEliminar"
+							value="#{persona.cliente.activo eq true ? msg['lbl.desactivar']: msg['lbl.activar']}" />
+						<p:commandButton id="btnEditar" update=":mensaje, :formEditar"
+							action="#{clienteBean.cargarEditar}"
+							oncomplete="mostarPanelEditar('')" icon="#{msg['i.editar']}">
+							<f:setPropertyActionListener value="#{persona}"
+								target="#{clienteBean.persona}" />
+						</p:commandButton>
+						<p:commandButton id="btnEliminar" update=":mensaje, :formEliminar"
+							oncomplete="mostarPanelEliminar('')"
+							icon="#{persona.cliente.activo eq true ? msg['i.eliminar']: msg['i.activar']}">
+							<f:setPropertyActionListener value="#{persona}"
+								target="#{clienteBean.persona}" />
+						</p:commandButton>
+					</p:column>
+					<p:column headerText="Cod.">
+						<p:outputLabel value="#{persona.cliente.id}" />
+					</p:column>
+					<p:column headerText="#Carpeta">
+						<p:outputLabel value="#{persona.cliente.folio}" />
+					</p:column>
+					<p:column headerText="Cédula-RUC">
+						<p:outputLabel value="#{persona.cedula}" />
+					</p:column>
+					<p:column headerText="Apellidos">
+						<p:outputLabel value="#{persona.apellido}" />
+					</p:column>
+					<p:column headerText="Nombres">
+						<p:outputLabel value="#{persona.nombre}" />
+					</p:column>
+					<p:column headerText="Nombre Comercial">
+						<p:outputLabel value="#{persona.cliente.nombreComercial}" />
+					</p:column>
+					<p:column headerText="Ciudad">
+						<p:outputLabel value="#{persona.ciudad.nombre}" />
+					</p:column>
+					<p:column headerText="Dirección">
+						<p:outputLabel value="#{persona.direccion}" />
+					</p:column>
+				</p:dataTable>
 			</h:form>
 		</p:panel>
 	</ui:define>

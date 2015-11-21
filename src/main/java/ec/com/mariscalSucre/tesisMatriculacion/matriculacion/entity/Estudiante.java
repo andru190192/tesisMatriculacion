@@ -229,92 +229,92 @@ public class Estudiante implements Serializable {
 		return fechaRegistro;
 	}
 
-	public Integer setId(Integer id) {
-		return this.id = id;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
-	public Persona setPersona(Persona persona) {
-		return this.persona = persona;
+	public void setPersona(Persona persona) {
+		this.persona = persona;
 	}
 
-	public String setPapa(String papa) {
-		return this.papa = papa;
+	public void setPapa(String papa) {
+		this.papa = papa;
 	}
 
-	public String setCedulaPapa(String cedulaPapa) {
-		return this.cedulaPapa = cedulaPapa;
+	public void setCedulaPapa(String cedulaPapa) {
+		this.cedulaPapa = cedulaPapa;
 	}
 
-	public String setProfesionPapa(String profesionPapa) {
-		return this.profesionPapa = profesionPapa;
+	public void setProfesionPapa(String profesionPapa) {
+		this.profesionPapa = profesionPapa;
 	}
 
-	public String setTelefonoPapa(String telefonoPapa) {
-		return this.telefonoPapa = telefonoPapa;
+	public void setTelefonoPapa(String telefonoPapa) {
+		this.telefonoPapa = telefonoPapa;
 	}
 
-	public String setDireccionPapa() {
-		return this.direccionPapa;
+	public void setDireccionPapa(String direccionPapa) {
+		this.direccionPapa = direccionPapa;
 	}
 
-	public String setMama() {
-		return mama;
+	public void setMama(String mama) {
+		this.mama = mama;
 	}
 
-	public String setCedulaMama() {
-		return this.cedulaMama;
+	public void setCedulaMama(String cedulaMama) {
+		this.cedulaMama = cedulaMama;
 	}
 
-	public String setProfesionMama() {
-		return this.profesionMama;
+	public void setProfesionMama(String profesionMama) {
+		this.profesionMama = profesionMama;
 	}
 
-	public String setTelefonoMama() {
-		return this.telefonoMama;
+	public void setTelefonoMama(String telefonoMama) {
+		this.telefonoMama = telefonoMama;
 	}
 
-	public String setDireccionMama() {
-		return this.direccionMama;
+	public void setDireccionMama(String direccionMama) {
+		this.direccionMama = direccionMama;
 	}
 
-	public String setRepresentante() {
-		return this.representante;
+	public void setRepresentante(String representante) {
+		this.representante = representante;
 	}
 
-	public String setCedulaRepresentante() {
-		return this.cedulaRepresentante;
+	public void setCedulaRepresentante(String cedulaRepresentante) {
+		this.cedulaRepresentante = cedulaRepresentante;
 	}
 
-	public String setTelefonoRepresentante() {
-		return this.telefonoRepresentante;
+	public void setTelefonoRepresentante(String telefonoRepresentante) {
+		this.telefonoRepresentante = telefonoRepresentante;
 	}
 
-	public String setDireccionRepresentante(String direccionRepresentante) {
-		return this.direccionRepresentante = direccionRepresentante;
+	public void setDireccionRepresentante(String direccionRepresentante) {
+		this.direccionRepresentante = direccionRepresentante;
 	}
 
-	public String setEmailRepresentante(String emailRepresentante) {
-		return this.emailRepresentante = emailRepresentante;
+	public void setEmailRepresentante(String emailRepresentante) {
+		this.emailRepresentante = emailRepresentante;
 	}
 
-	public String setEscuelaProcede(String escuelaProcede) {
-		return this.escuelaProcede = escuelaProcede;
+	public void setEscuelaProcede(String escuelaProcede) {
+		this.escuelaProcede = escuelaProcede;
 	}
 
-	public String setObservaciones(String observaciones) {
-		return this.observaciones = observaciones;
+	public void setObservaciones(String observaciones) {
+		this.observaciones = observaciones;
 	}
 
-	public String setFolio(String folio) {
-		return this.folio = folio;
+	public void setFolio(String folio) {
+		this.folio = folio;
 	}
 
-	public Boolean setActivo(Boolean activo) {
-		return this.activo = activo;
+	public void setActivo(Boolean activo) {
+		this.activo = activo;
 	}
 
-	public Date setFechaRegistro(Date fechaRegistro) {
-		return this.fechaRegistro = fechaRegistro;
+	public void setFechaRegistro(Date fechaRegistro) {
+		this.fechaRegistro = fechaRegistro;
 	}
 
 }
