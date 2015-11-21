@@ -5,8 +5,6 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,16 +17,13 @@ import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 
-import ec.com.mariscalSucre.tesisMatriculacion.matriculacion.entityAux.Grado;
-
 @Entity
-@Table(name = "estudiante")
+@Table(name = "estudiantes")
 public class Estudiante implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private Persona persona;
-	private Grado grado;
 	private String papa;
 	private String cedulaPapa;
 	private String profesionPapa;
@@ -53,15 +48,13 @@ public class Estudiante implements Serializable {
 	public Estudiante() {
 	}
 
-	public Estudiante(Integer id, Persona persona, Grado grado, String papa, String cedulaPapa, String profesionPapa,
+	public Estudiante(Integer id, Persona persona, String papa, String cedulaPapa, String profesionPapa,
 			String telefonoPapa, String direccionPapa, String mama, String cedulaMama, String profesionMama,
 			String telefonoMama, String direccionMama, String representante, String cedulaRepresentante,
 			String telefonoRepresentante, String direccionRepresentante, String emailRepresentante,
 			String escuelaProcede, String observaciones, String folio, Boolean activo, Date fechaRegistro) {
-		super();
 		this.id = id;
 		this.persona = persona;
-		this.grado = grado;
 		this.papa = papa;
 		this.cedulaPapa = cedulaPapa;
 		this.profesionPapa = profesionPapa;
@@ -124,11 +117,11 @@ public class Estudiante implements Serializable {
 		return this.persona;
 	}
 
-	@Enumerated(EnumType.STRING)
-	@Column(name = "gradoid", nullable = false)
-	public Grado getGrado() {
-		return this.grado;
-	}
+	// @Enumerated(EnumType.STRING)
+	// @Column(name = "gradoid", nullable = false)
+	// public Grado getGrado() {
+	// return this.grado;
+	// }
 
 	@Length(min = 3, message = "EL NOMBRE DEL PADRE DEBE TENER MINIMO 3 LETRAS")
 	@Column(name = "papa", nullable = false)
@@ -152,7 +145,7 @@ public class Estudiante implements Serializable {
 		return telefonoPapa;
 	}
 
-	@Column(name = "direccionpapa")
+	@Column(name = "direccionpapa", nullable = false)
 	public String getDireccionPapa() {
 		return direccionPapa;
 	}
@@ -196,7 +189,7 @@ public class Estudiante implements Serializable {
 		return cedulaRepresentante;
 	}
 
-	@Column(name = "telefonoRepresentante")
+	@Column(nullable = false, name = "telefonoRepresentante")
 	public String getTelefonoRepresentante() {
 		return telefonoRepresentante;
 	}
@@ -207,6 +200,7 @@ public class Estudiante implements Serializable {
 	}
 
 	@Email(message = "INGRESE UN EMAIL VALIDO")
+	@Column(name = "emailrepresentante")
 	public String getEmailRepresentante() {
 		return emailRepresentante;
 	}
@@ -220,6 +214,7 @@ public class Estudiante implements Serializable {
 		return observaciones;
 	}
 
+	@Column(nullable = false)
 	public String getFolio() {
 		return this.folio;
 	}
@@ -229,7 +224,7 @@ public class Estudiante implements Serializable {
 		return this.activo;
 	}
 
-	@Column(name = "fecharegistro")
+	@Column(name = "fecharegistro", nullable = false)
 	public Date getFechaRegistro() {
 		return fechaRegistro;
 	}
@@ -240,10 +235,6 @@ public class Estudiante implements Serializable {
 
 	public Persona setPersona(Persona persona) {
 		return this.persona = persona;
-	}
-
-	public Grado setGrado(Grado grado) {
-		return this.grado = grado;
 	}
 
 	public String setPapa(String papa) {

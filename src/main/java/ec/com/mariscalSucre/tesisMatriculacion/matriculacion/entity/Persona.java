@@ -22,7 +22,7 @@ import ec.com.mariscalSucre.tesisMatriculacion.seguridad.entity.Bitacora;
 import ec.com.mariscalSucre.tesisMatriculacion.seguridad.entity.RolUsuario;
 
 @Entity
-@Table(name = "persona")
+@Table(name = "personas")
 public class Persona implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -136,30 +136,30 @@ public class Persona implements Serializable {
 		return this.cedula;
 	}
 
-	@Pattern(regexp = "[A-Za-z ñÑ]{3,100}", message = "EL CAMPO APELLIDO ACEPTA DE 3 A 100 LETRAS")
-	@Column(nullable = false, length = 100)
+	@Pattern(regexp = "[A-Za-z ñÑ]{3}", message = "EL CAMPO APELLIDO ACEPTA MINIMO 3 LETRAS ")
+	@Column(nullable = false)
 	public String getApellido() {
 		return this.apellido;
 	}
 
-	@Pattern(regexp = "[A-Za-z ñÑ]{3,100}", message = "EL CAMPO NOMBRE ACEPTA DE 3 A 100 LETRAS")
-	@Column(nullable = false, length = 100)
+	@Pattern(regexp = "[A-Za-z ñÑ]{3}", message = "EL CAMPO NOMBRE ACEPTA MINIMO 3 LETRAS ")
+	@Column(nullable = false)
 	public String getNombre() {
 		return this.nombre;
 	}
 
-	@Column(name = "fechanacimiento", nullable = false)
+	@Column(name = "fechanacimiento")
 	public Date getFechaNacimiento() {
 		return this.fechaNacimiento;
 	}
 
-	@Pattern(regexp = "[A-Za-z ñÑ]{3,500}", message = "LA DIRECCION ACEPTA DE 3 A 500 LETRAS")
-	@Column(nullable = false, length = 500)
+	@Pattern(regexp = "[A-Za-z ñÑ]{3}", message = "LA DIRECCION ACEPTA MINIMO 3 LETRAS ")
+	@Column(nullable = false)
 	public String getDireccion() {
 		return this.direccion;
 	}
 
-	@Column(nullable = false)
+	@Column(nullable = false, length = 255)
 	public String getPassword() {
 		return this.password;
 	}
