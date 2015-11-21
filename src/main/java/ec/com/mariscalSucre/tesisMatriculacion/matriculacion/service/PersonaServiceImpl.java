@@ -188,8 +188,8 @@ public class PersonaServiceImpl implements PersonaService, Serializable {
 	}
 
 	public List<Persona> obtener(Boolean activo) {
-		List<Persona> lista = personaDao.obtenerPorHql(
-				"select p from Persona p where p.visible=true and order by p.apellido, p.nombre", new Object[] {});
+		List<Persona> lista = personaDao.obtenerPorHql("select p from Persona p order by p.apellido, p.nombre",
+				new Object[] {});
 		return lista;
 	}
 
@@ -209,17 +209,14 @@ public class PersonaServiceImpl implements PersonaService, Serializable {
 		// + "from rrhh.persona p where p.visible=true and p.cedula='"
 		// + cedula + "'", PersonaCedulaNombre.class).get(
 		// 0);
-		return (PersonaCedulaNombre) personaDao
-				.obtenerPorHql(
-						"select p.personaid as id, p.cedula as cedula, " + "p.apellido||' '||p.nombre as nombres "
-								+ "from rrhh.persona p where p.visible=true and p.cedula='" + cedula + "'",
-						new Object[] {});
+		return (PersonaCedulaNombre) personaDao.obtenerPorHql("select p.personaid as id, p.cedula as cedula, "
+				+ "p.apellido||' '||p.nombre as nombres " + "from rrhh.persona p where p.cedula='" + cedula + "'",
+				new Object[] {});
 	}
 
 	public Persona obtenerPorCedula(String cedula) {
 		List<Persona> persona = personaDao.obtenerPorHql(
-				"select p from Persona p " + "where p.visible=true and p.cedula=?1 and p.activo=true",
-				new Object[] { cedula });
+				"select p from Persona p " + "where p.cedula=?1 and p.activo=true", new Object[] { cedula });
 		if (persona != null)
 			if (persona.size() != 0)
 				return persona.get(0);
@@ -228,10 +225,8 @@ public class PersonaServiceImpl implements PersonaService, Serializable {
 	}
 
 	public Persona obtenerPorPersonaId(Integer personaId) {
-		Persona persona = personaDao
-				.obtenerPorHql("select p from Persona p " + "where p.visible=true and p.id=?1 and p.activo=true",
-						new Object[] { personaId })
-				.get(0);
+		Persona persona = personaDao.obtenerPorHql("select p from Persona p " + "where p.id=?1 and p.activo=true",
+				new Object[] { personaId }).get(0);
 		return persona;
 	}
 
@@ -245,22 +240,22 @@ public class PersonaServiceImpl implements PersonaService, Serializable {
 			if (criterioBusquedaPersona.length() >= 3 || criterioBusquedaCiudad != 0) {
 				if (criterioBusquedaPersona.compareToIgnoreCase("") != 0 && criterioBusquedaCiudad != 0)
 					lista = personaDao.obtenerPorHql(
-							"select distinct p from Persona p " + "inner join p.ciudad cd "
-									+ "where p.visible=true and (cd.ciudadid=?2 "
+							"select distinct p from Persona p " + "inner join p.ciudad cd " + "where (cd.ciudadid=?2 "
 									+ "and (p.cedula like ?1 or p.nombre like ?1 or p.apellido like ?1 )) "
 									+ "order by p.apellido, p.nombre",
 							new Object[] { "%" + criterioBusquedaPersona + "%", criterioBusquedaCiudad });
 				else if (criterioBusquedaPersona.compareToIgnoreCase("") != 0)
 					lista = personaDao.obtenerPorHql(
 							"select distinct p from Persona p "
-									+ "where p.visible=true and (p.cedula like ?1 or p.nombre like ?1 or p.apellido like ?1 ) "
+									+ "where (p.cedula like ?1 or p.nombre like ?1 or p.apellido like ?1 ) "
 									+ "order by p.apellido, p.nombre",
 							new Object[] { "%" + criterioBusquedaPersona + "%" });
 				else if (criterioBusquedaCiudad != 0)
-					lista = personaDao.obtenerPorHql(
-							"select distinct p from Persona p " + "inner join p.ciudad cd "
-									+ "where p.visible=true and cd.ciudadid=?1 " + "order by p.apellido, p.nombre",
-							new Object[] { criterioBusquedaCiudad });
+					lista = personaDao
+							.obtenerPorHql(
+									"select distinct p from Persona p " + "inner join p.ciudad cd "
+											+ "where cd.ciudadid=?1 " + "order by p.apellido, p.nombre",
+									new Object[] { criterioBusquedaCiudad });
 				if (lista.isEmpty())
 					presentaMensaje(FacesMessage.SEVERITY_INFO, "NO SE ENCONTRO NINGUNA COINCIDENCIA");
 			} else
@@ -285,7 +280,7 @@ public class PersonaServiceImpl implements PersonaService, Serializable {
 			presentaMensaje(FacesMessage.SEVERITY_ERROR, "INGRESE MAS DE 3 CARACTERES");
 		else {
 			lista = personaDao.obtenerPorHql(
-					"select distinct p from Persona p " + "where p.visible=true and "
+					"select distinct p from Persona p " + "where "
 							+ "(p.cedula like ?1 or p.nombre like ?1 or p.apellido like ?1 ) " + "and p.activo=true",
 					new Object[] { "%" + criterioPersonaBusqueda + "%" });
 			if (lista.isEmpty())
