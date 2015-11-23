@@ -33,8 +33,9 @@
 					emptyMessage="#{msg['lbl.mensajeTabla']}">
 					<f:facet name="header">
 						<p:tooltip for="btnNuevo" value="#{msg['lbl.insertar']}" />
-						<p:commandButton update="" oncomplete="mostarPanelInsertar('')"
-							action="#{estudianteBean.limpiarObjetos}" id="btnNuevo"
+						<p:commandButton update=":formNuevo"
+							oncomplete="mostarPanelInsertar('')"
+							action="#{clienteBean.cargarInsertar}" id="btnNuevo"
 							icon="#{msg['i.nuevo']}" />
 					</f:facet>
 					<p:column headerText="#{msg['lbl.gestionar']}">
@@ -79,6 +80,99 @@
 						<p:outputLabel value="#{persona.direccion}" />
 					</p:column>
 				</p:dataTable>
+			</h:form>
+		</p:panel>
+
+
+		<p:panel id="panelInsertar" header="#{msg['lbl.insertar']}"
+			styleClass="DispNone">
+			<h:form id="formNuevo">
+				<p:outputLabel value="Los campos marcados con * son Obligatorios"
+					styleClass="DispBlock" />
+				<div id="datosIngreso" class="divDatosIzq50">
+					<p:outputLabel value="Datos Personales" styleClass="subTitulos" />
+					<p:outputLabel value="* Cédula/RUC" for="cedula"
+						styleClass="DispBlock" />
+					<p:inputText id="cedula" value="#{estudianteBean.persona.cedula}"
+						styleClass="DispBlock Wid90">
+						<p:ajax event="blur" listener="#{estudianteBean.comprobarPersona}"
+							update="formNuevo,:mensaje" />
+					</p:inputText>
+					<p:outputLabel value="* Apellidos" for="apellidos"
+						styleClass="DispBlock" />
+					<p:inputText id="apellidos"
+						value="#{estudianteBean.persona.apellido}"
+						onblur="this.value = this.value.toUpperCase(), concatenarNuevo()"
+						styleClass="DispBlock Wid90">
+						<p:ajax event="blur" update="nombreComercial" />
+					</p:inputText>
+					<p:outputLabel value="* Nombres" for="nombres"
+						styleClass="DispBlock" />
+					<p:inputText id="nombres" value="#{clienteBean.persona.nombre}"
+						onblur="this.value = this.value.toUpperCase(), concatenarNuevo()"
+						styleClass="DispBlock Wid90">
+						<p:ajax event="blur" update="nombreComercial" />
+					</p:inputText>
+					<p:outputLabel value="* Fecha Nacimiento" for="fechanacimiento"
+						styleClass="DispBlock" />
+					<p:calendar id="fechanacimiento"
+						value="#{estudiante.persona.fechanacimiento}"
+						styleClass="DispBlock Wid90" />
+					<p:outputLabel value="Email" for="emails" styleClass="DispBlock" />
+					<p:inputText id="emails" rows="2"
+						value="#{clienteBean.persona.estudiante.emailrepresentante}"
+						styleClass="DispBlock Wid90" />
+				</div>
+				<div id="tablaIngreso" class="divDatosDer50">
+					<p:outputLabel value="Datos Residencia" styleClass="subTitulos" />
+					<p:outputLabel value="* Provincia" for="comboProvincia"
+						styleClass="DispBlock" />
+					<p:selectOneMenu id="comboProvincia" filter="true"
+						filterMatchMode="contains"
+						value="#{clienteBean.persona.ciudad.provincia}"
+						styleClass="DispBlock Wid90">
+						<f:selectItem itemLabel="Escoja una Provincia" />
+						<f:selectItems value="#{clienteBean.listaProvincias}"
+							var="provincia" itemValue="#{provincia}"
+							itemLabel="#{provincia.nombre}" />
+						<p:ajax event="change" listener="#{clienteBean.cargarCiudades}"
+							update="comboCiudad" />
+					</p:selectOneMenu>
+					<p:outputLabel value="* Ciudad" for="comboCiudad"
+						styleClass="DispBlock" />
+					<p:selectOneMenu id="comboCiudad" filter="true"
+						filterMatchMode="contains"
+						value="#{clienteBean.persona.ciudad.id}"
+						styleClass="DispBlock Wid90">
+						<f:selectItem itemLabel="Escoja una Ciudad" />
+						<f:selectItems value="#{clienteBean.listaCiudades}" var="ciudad"
+							itemValue="#{ciudad.id}" itemLabel="#{ciudad.nombre}" />
+					</p:selectOneMenu>
+					<p:outputLabel value="Referencia" for="observaciones"
+						styleClass="DispBlock" />
+					<p:inputTextarea id="observaciones" rows="2"
+						value="#{clienteBean.persona.estudiante.observaciones}"
+						onblur="this.value = this.value.toUpperCase();"
+						styleClass="DispBlock Wid90" />
+
+					<p:outputLabel value="Registro Físico" styleClass="subTitulos" />
+					<p:outputLabel value="# Carpeta" for="carpeta"
+						styleClass="DispBlock" />
+					<p:inputText id="carpeta"
+						value="#{clienteBean.persona.estudiante.folio}"
+						onblur="this.value = this.value.toUpperCase();"
+						styleClass="DispBlock Wid90" />
+				</div>
+				<div class="EmptyBox10"></div>
+				<p:separator />
+				<p:commandButton value="#{msg['btn.guardar']}"
+					update=":formDataTable ,:mensaje, formNuevo"
+					oncomplete="comprobarInsertar(xhr, status, args, '')"
+					id="btnNuevoAceptar" icon="#{msg['i.guardar']}"
+					actionListener="#{clienteBean.insertar}" styleClass="GreenButton" />
+				<p:commandButton value="#{msg['btn.cancelar']}"
+					oncomplete="mostarPanelInsertar('')" id="btnNuevolimpiar"
+					icon="#{msg['i.cancelar']}" process="@this" styleClass="RedButton" />
 			</h:form>
 		</p:panel>
 	</ui:define>
