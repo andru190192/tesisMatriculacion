@@ -90,7 +90,7 @@
 				<p:outputLabel value="Los campos marcados con * son Obligatorios"
 					styleClass="DispBlock" />
 				<div id="datosIngreso" class="divDatosIzq50">
-					<p:outputLabel value="Datos Personales" styleClass="subTitulos" />
+					<p:outputLabel value="Datos Estudiante" styleClass="subTitulos" />
 					<p:outputLabel value="* Cédula/RUC" for="cedula"
 						styleClass="DispBlock" />
 					<p:inputText id="cedula" value="#{estudianteBean.persona.cedula}"
@@ -102,29 +102,15 @@
 						styleClass="DispBlock" />
 					<p:inputText id="apellidos"
 						value="#{estudianteBean.persona.apellido}"
-						onblur="this.value = this.value.toUpperCase(), concatenarNuevo()"
+						onblur="this.value = this.value.toUpperCase()"
 						styleClass="DispBlock Wid90">
-						<p:ajax event="blur" update="nombreComercial" />
 					</p:inputText>
 					<p:outputLabel value="* Nombres" for="nombres"
 						styleClass="DispBlock" />
 					<p:inputText id="nombres" value="#{clienteBean.persona.nombre}"
-						onblur="this.value = this.value.toUpperCase(), concatenarNuevo()"
+						onblur="this.value = this.value.toUpperCase()"
 						styleClass="DispBlock Wid90">
-						<p:ajax event="blur" update="nombreComercial" />
 					</p:inputText>
-					<p:outputLabel value="* Fecha Nacimiento" for="fechanacimiento"
-						styleClass="DispBlock" />
-					<p:calendar id="fechanacimiento"
-						value="#{estudiante.persona.fechanacimiento}"
-						styleClass="DispBlock Wid90" />
-					<p:outputLabel value="Email" for="emails" styleClass="DispBlock" />
-					<p:inputText id="emails" rows="2"
-						value="#{clienteBean.persona.estudiante.emailrepresentante}"
-						styleClass="DispBlock Wid90" />
-				</div>
-				<div id="tablaIngreso" class="divDatosDer50">
-					<p:outputLabel value="Datos Residencia" styleClass="subTitulos" />
 					<p:outputLabel value="* Provincia" for="comboProvincia"
 						styleClass="DispBlock" />
 					<p:selectOneMenu id="comboProvincia" filter="true"
@@ -148,6 +134,25 @@
 						<f:selectItems value="#{clienteBean.listaCiudades}" var="ciudad"
 							itemValue="#{ciudad.id}" itemLabel="#{ciudad.nombre}" />
 					</p:selectOneMenu>
+					<p:outputLabel value="* Fecha Nacimiento" for="fechanacimiento"
+						styleClass="DispBlock" />
+					<p:calendar id="fechanacimiento"
+						value="#{estudiante.persona.fechanacimiento}"
+						styleClass="DispBlock Wid90" />
+					<p:outputLabel value="Direccion" for="direccion"
+						styleClass="DispBlock" />
+					<p:inputText id="direccion" rows="2"
+						value="#{clienteBean.persona.direccion}"
+						styleClass="DispBlock Wid90" />
+
+				</div>
+				<div id="tablaIngreso" class="divDatosDer50">
+					<p:outputLabel value="Datos Representante" styleClass="subTitulos" />
+
+					<p:outputLabel value="Email" for="emails" styleClass="DispBlock" />
+					<p:inputText id="emails" rows="2"
+						value="#{clienteBean.persona.estudiante.emailrepresentante}"
+						styleClass="DispBlock Wid90" />
 					<p:outputLabel value="Referencia" for="observaciones"
 						styleClass="DispBlock" />
 					<p:inputTextarea id="observaciones" rows="2"
