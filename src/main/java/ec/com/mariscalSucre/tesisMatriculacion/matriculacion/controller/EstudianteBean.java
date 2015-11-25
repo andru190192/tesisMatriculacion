@@ -1,10 +1,13 @@
 package ec.com.mariscalSucre.tesisMatriculacion.matriculacion.controller;
 
+import static ec.com.mariscalSucre.tesisMatriculacion.utils.UtilsAplicacion.presentaMensaje;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.event.ActionEvent;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,7 @@ import ec.com.mariscalSucre.tesisMatriculacion.matriculacion.entity.Persona;
 import ec.com.mariscalSucre.tesisMatriculacion.matriculacion.entity.Provincia;
 import ec.com.mariscalSucre.tesisMatriculacion.matriculacion.service.CiudadService;
 import ec.com.mariscalSucre.tesisMatriculacion.matriculacion.service.EstudianteService;
+import ec.com.mariscalSucre.tesisMatriculacion.matriculacion.service.PersonaService;
 
 @Controller
 @Scope("session")
@@ -26,6 +30,9 @@ public class EstudianteBean implements Serializable {
 
 	@Autowired
 	private EstudianteService estudianteService;
+
+	@Autowired
+	private PersonaService personaService;
 
 	@Autowired
 	private CiudadService ciudadService;
@@ -67,6 +74,22 @@ public class EstudianteBean implements Serializable {
 
 	public void cargarInsertar() {
 		limpiarObjetos();
+	}
+
+	public void comprobarPersona() {
+		String cedula = persona.getCedula().trim();
+		persona = personaService.obtenerPorCedula(cedula);
+		if (persona != null && persona.getEstudiante() != null) {
+			limpiarObjetos();
+			presentaMensaje(FacesMessage.SEVERITY_ERROR, "EL ESTUDIANTE YA EXISTE");
+		} else if (persona != null) {
+			persona.setEstudiante(new Estudiante());
+			persona.getEstudiante().setFolio(String.valueOf(estudianteService.contar() + 1));
+			cargarCiudades();
+		} else {
+			limpiarObjetos();
+			persona.setCedula(cedula);
+		}
 	}
 
 	public List<Persona> getListaPersonasEstudiantes() {
