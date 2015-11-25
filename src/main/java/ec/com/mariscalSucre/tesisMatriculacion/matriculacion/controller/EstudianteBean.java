@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.event.ActionEvent;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import ec.com.mariscalSucre.tesisMatriculacion.matriculacion.entity.Ciudad;
 import ec.com.mariscalSucre.tesisMatriculacion.matriculacion.entity.Estudiante;
 import ec.com.mariscalSucre.tesisMatriculacion.matriculacion.entity.Persona;
+import ec.com.mariscalSucre.tesisMatriculacion.matriculacion.entity.Provincia;
 import ec.com.mariscalSucre.tesisMatriculacion.matriculacion.service.CiudadService;
 import ec.com.mariscalSucre.tesisMatriculacion.matriculacion.service.EstudianteService;
 
@@ -59,6 +61,14 @@ public class EstudianteBean implements Serializable {
 		listaPersonasEstudiantes = estudianteService.obtenerTodosPorBusqueda(criterioBusquedaEstudiante.toUpperCase());
 	}
 
+	public void insertar(ActionEvent actionEvent) {
+		estudianteService.insertar(persona);
+	}
+
+	public void cargarInsertar() {
+		limpiarObjetos();
+	}
+
 	public List<Persona> getListaPersonasEstudiantes() {
 		return listaPersonasEstudiantes;
 	}
@@ -89,6 +99,10 @@ public class EstudianteBean implements Serializable {
 
 	public void setListaCiudades(List<Ciudad> listaCiudades) {
 		this.listaCiudades = listaCiudades;
+	}
+
+	public Provincia[] getListaProvincias() {
+		return Provincia.values();
 	}
 
 }

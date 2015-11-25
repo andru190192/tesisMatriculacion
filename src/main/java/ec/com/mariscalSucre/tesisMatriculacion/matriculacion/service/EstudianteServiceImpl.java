@@ -96,8 +96,9 @@ public class EstudianteServiceImpl implements EstudianteService, Serializable {
 	}
 
 	public List<Persona> obtener() {
-		List<Persona> lista = personaDao.obtenerPorHql("select p from Persona p " + "inner join p.estudiante e "
-				+ "order by p.apellido, p.nombre", new Object[] {});
+		List<Persona> lista = personaDao.obtenerPorHql(
+				"select p from Persona p " + "inner join p.estudiante e " + "order by p.apellido, p.nombre",
+				new Object[] {});
 		return lista;
 	}
 
@@ -113,10 +114,8 @@ public class EstudianteServiceImpl implements EstudianteService, Serializable {
 							+ "where (p.cedula like ?1 or p.nombre like ?1 or p.apellido like ?1) and p.activo=true and e.activo=true",
 					new Object[] { "%" + criterioEstudiante.toUpperCase() + "%" });
 		else if (estudianteId != 0)
-			lista = personaDao.obtenerPorHql(
-					"select distinct p from Persona p inner join p.estudiante e "
-							+ "where p.activo=true and e.activo=true and e.id=?1",
-					new Object[] { estudianteId });
+			lista = personaDao.obtenerPorHql("select distinct p from Persona p inner join p.estudiante e "
+					+ "where p.activo=true and e.activo=true and e.id=?1", new Object[] { estudianteId });
 
 		if (lista.isEmpty())
 			presentaMensaje(FacesMessage.SEVERITY_WARN, "NO SE ENCONTRO NINGUNA COINCIDENCIA");
@@ -141,8 +140,9 @@ public class EstudianteServiceImpl implements EstudianteService, Serializable {
 	}
 
 	public Persona obtenerPorCedula(String cedula) {
-		List<Persona> lista = personaDao.obtenerPorHql("select distinct p from Persona p inner join p.estudiante e "
-				+ "where p.cedula=?1 and p.activo=true", new Object[] { cedula });
+		List<Persona> lista = personaDao.obtenerPorHql(
+				"select distinct p from Persona p inner join p.estudiante e " + "where p.cedula=?1 and p.activo=true",
+				new Object[] { cedula });
 		if (!lista.isEmpty())
 			return lista.get(0);
 		return null;
