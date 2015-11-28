@@ -1,7 +1,6 @@
 package ec.com.mariscalSucre.tesisMatriculacion.matriculacion.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -31,7 +30,7 @@ public class Persona implements Serializable {
 	private String cedula;
 	private String apellido;
 	private String nombre;
-	private Date fechaNacimiento;
+	// private Date fechaNacimiento;
 	private String direccion;
 	private String password;
 	private Boolean activo;
@@ -43,8 +42,9 @@ public class Persona implements Serializable {
 	public Persona() {
 	}
 
-	public Persona(Integer id, String cedula, String apellido, String nombre, Ciudad ciudad, Date fechaNacimiento,
-			String direccion, Boolean activo, Estudiante estudiante, Empleado empleado, String password,
+	public Persona(Integer id, String cedula, String apellido, String nombre,
+			Ciudad ciudad, String direccion, Boolean activo,
+			Estudiante estudiante, Empleado empleado, String password,
 			List<Bitacora> bitacoras, List<RolUsuario> rolUsuarios) {
 		super();
 		this.id = id;
@@ -52,7 +52,7 @@ public class Persona implements Serializable {
 		this.apellido = apellido;
 		this.nombre = nombre;
 		this.ciudad = ciudad;
-		this.fechaNacimiento = fechaNacimiento;
+		// this.fechaNacimiento = fechaNacimiento;
 		this.direccion = direccion;
 		this.activo = activo;
 		this.estudiante = estudiante;
@@ -147,10 +147,10 @@ public class Persona implements Serializable {
 		return this.nombre;
 	}
 
-	@Column(name = "fechanacimiento")
-	public Date getFechaNacimiento() {
-		return this.fechaNacimiento;
-	}
+//	@Column(name = "fechanacimiento")
+//	public Date getFechaNacimiento() {
+//		return this.fechaNacimiento;
+//	}
 
 	@Pattern(regexp = "[A-Za-z ñÑ]{3}", message = "LA DIRECCION ACEPTA MINIMO 3 LETRAS ")
 	@Column(nullable = false)
@@ -236,8 +236,8 @@ public class Persona implements Serializable {
 		this.rolUsuarios = rolUsuarios;
 	}
 
-	public void setFechaNacimiento(Date fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
-	}
+	// public void setFechaNacimiento(Date fechaNacimiento) {
+	// this.fechaNacimiento = fechaNacimiento;
+	// }
 
 }

@@ -66,17 +66,18 @@ public class BitacoraAspect implements Serializable {
 		} catch (Exception e) {
 			mensaje = "error al leer método";
 		}
-		String cedula = SecurityContextHolder.getContext().getAuthentication().getName();
-		if (cedula.compareTo("0123456789") != 0)
-			bitacoraDao.insertar(new Bitacora(new Timestamp((new Date()).getTime()), mensaje,
-					personaService.obtenerPorCedula(cedula)));
+//		String cedula = SecurityContextHolder.getContext().getAuthentication().getName();
+//		if (cedula.compareTo("0123456789") != 0)
+//			bitacoraDao.insertar(new Bitacora(new Timestamp((new Date()).getTime()), mensaje,
+//					personaService.obtenerPorCedula(cedula)));
 	}
 
 	@After("execution(public * ec.com.mariscalSucre.tesisMatriculacion.seguridad.service.MenuService.obtenerPorUsuario(..)) ")
 	public void ingreso(JoinPoint joinPoint) {
 		String cedula = SecurityContextHolder.getContext().getAuthentication().getName();
 		if (cedula.compareTo("0123456789") != 0)
-			bitacoraDao.insertar(new Bitacora(new Timestamp((new Date()).getTime()), "Ingresó al Sistema",
-					personaService.obtenerActivoPorCedula(cedula)));
+			bitacoraDao.insertar(new Bitacora(new Timestamp((new Date())
+					.getTime()), "Ingresó al Sistema", personaService
+					.obtenerActivoPorCedula(cedula)));
 	}
 }

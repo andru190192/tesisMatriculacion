@@ -29,7 +29,7 @@ public class PersistenceConfig {
 
 		String nombreServidor = "localhost";
 		String puertoServidor = "5432";
-		String nombreBaseDatos = "mariscalSucre";
+		String nombreBaseDatos = "prueba";
 		String username = "mariscalSucre";
 		String password = "12345";
 

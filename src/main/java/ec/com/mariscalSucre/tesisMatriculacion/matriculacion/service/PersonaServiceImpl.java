@@ -134,13 +134,7 @@ public class PersonaServiceImpl implements PersonaService, Serializable {
 
 		else if (persona.getCiudad().getId() == null || persona.getCiudad().getId() == 0)
 			presentaMensaje(FacesMessage.SEVERITY_INFO, "ESCOJA UNA CIUDAD");
-		// } else if (persona.getEmailPersonas().size() == 0) {
-		// presentaMensaje(FacesMessage.SEVERITY_INFO,
-		// "MENSAJE DEL SISTEMA", "DEBE INGRESAR AL MENOS UN EMAIL"));
-		// } else if (persona.getTelefonoPersonas().size() == 0) {
-		// presentaMensaje(FacesMessage.SEVERITY_INFO,
-		// "MENSAJE DEL SISTEMA",
-		// "DEBE INGRESAR AL MENOS UN TELÉFONO"));
+		
 		else if (personaDao.comprobarIndices(Persona.class, "cedula", persona.getCedula(),
 				String.valueOf(persona.getId())))
 			presentaMensaje(FacesMessage.SEVERITY_INFO, "LA CÉDULA YA EXISTE", "cerrar", false);
@@ -216,7 +210,7 @@ public class PersonaServiceImpl implements PersonaService, Serializable {
 
 	public Persona obtenerPorCedula(String cedula) {
 		List<Persona> persona = personaDao.obtenerPorHql(
-				"select p from Persona p " + "where p.cedula=?1 and p.activo=true", new Object[] { cedula });
+				"select p from Persona p where p.cedula=?1 and p.activo=true", new Object[] { cedula });
 		if (persona != null)
 			if (persona.size() != 0)
 				return persona.get(0);
