@@ -239,7 +239,7 @@ public class EmpleadoServiceImpl implements EmpleadoService, Serializable {
 					lista = personaDao.obtenerPorHql(
 							"select distinct p from Persona p " + "inner join fetch p.empleado e "
 									+ "left join fetch e.empleadoCargos ec " + "left join ec.cargo c"
-									+ "inner join p.ciudad cd " + "where p.visible=true and (cd.id=?2 "
+									+ "inner join p.ciudad cd " + "where (cd.id=?2 "
 									+ "and (p.cedula like ?1 or p.nombre like ?1 or p.apellido like ?1)) "
 									+ "order by p.apellido, p.nombre",
 							new Object[] { "%" + criterioBusquedaEmpleado + "%", criterioBusquedaCiudad });
@@ -247,20 +247,21 @@ public class EmpleadoServiceImpl implements EmpleadoService, Serializable {
 					lista = personaDao.obtenerPorHql(
 							"select distinct p from Persona p " + "inner join fetch p.empleado e "
 									+ "left join fetch e.empleadoCargos ec " + "left join ec.cargo c "
-									+ "where p.visible=true and c.id=?1 order by p.apellido, p.nombre",
+									+ "where c.id=?1 order by p.apellido, p.nombre",
 							new Object[] { criterioBusquedaCargo });
 				else if (criterioBusquedaEmpleado.compareToIgnoreCase("") != 0)
 					lista = personaDao.obtenerPorHql(
 							"select distinct p from Persona p " + "inner join fetch p.empleado e "
 									+ "left join fetch e.empleadoCargos ec " + "left join ec.cargo "
-									+ "where p.visible=true and (p.cedula like ?1 or p.nombre like ?1 or p.apellido like ?1) "
+									+ "where (p.cedula like ?1 or p.nombre like ?1 or p.apellido like ?1) "
 									+ "order by p.apellido, p.nombre",
 							new Object[] { "%" + criterioBusquedaEmpleado + "%" });
 				else if (criterioBusquedaCiudad != 0)
-					lista = personaDao.obtenerPorHql("select distinct p from Persona p "
-							+ "inner join fetch p.empleado e " + "left join fetch e.empleadoCargos ec "
-							+ "left join ec.cargo " + "inner join p.ciudad cd " + "where p.visible=true and cd.id=?1 "
-							+ "order by p.apellido, p.nombre", new Object[] { criterioBusquedaCiudad });
+					lista = personaDao.obtenerPorHql(
+							"select distinct p from Persona p " + "inner join fetch p.empleado e "
+									+ "left join fetch e.empleadoCargos ec " + "left join ec.cargo "
+									+ "inner join p.ciudad cd " + "where cd.id=?1 " + "order by p.apellido, p.nombre",
+							new Object[] { criterioBusquedaCiudad });
 				if (lista.isEmpty())
 					presentaMensaje(FacesMessage.SEVERITY_INFO, "NO SE ENCONTRO NINGUNA COINCIDENCIA");
 

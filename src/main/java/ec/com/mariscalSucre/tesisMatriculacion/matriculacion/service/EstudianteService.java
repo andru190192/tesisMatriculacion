@@ -30,6 +30,9 @@ public interface EstudianteService {
 	public List<Persona> obtenerActivos();
 
 	@Transactional
+	public List<Persona> obtenerTodosPorBusqueda(String criterioEstudianteBusqueda);
+
+	@Transactional
 	public Estudiante obtenerEstudiantePorCedula(String cedula);
 
 	@Transactional
@@ -41,6 +44,4 @@ public interface EstudianteService {
 	@Transactional
 	public Persona obtenerPorPersonaId(Integer personaId);
 
-	@Transactional
-	public List<Persona> obtenerTodosPorBusqueda(String criterioEstudianteBusqueda);
 }

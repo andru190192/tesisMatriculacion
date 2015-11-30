@@ -30,12 +30,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 				.antMatchers("/views/estudiantes/listadoEstudiantes.jsf")
 				.hasAnyAuthority("ADMINISTRADOR", "SECRETARIA", "DOSCENTE")
-				.antMatchers("/views/estudiantes/grados.jsf")
-				.hasAnyAuthority("ADMINISTRADOR")
 				.antMatchers("/views/estudiantes/reportes.jsf")
 				.hasAnyAuthority("ADMINISTRADOR", "SECRETARIA", "DOSCENTE")
 				
-				.antMatchers("/views/matriculacion/listadoMatriculacion.jsf")
+				.antMatchers("/views/matriculacion/listadoMatriculas.jsf")
 				.hasAnyAuthority("ADMINISTRADOR", "SECRETARIA")
 				.antMatchers("/views/matriculacion/certificadoMatricula.jsf")
 				.hasAnyAuthority("ADMINISTRADOR", "SECRETARIA")

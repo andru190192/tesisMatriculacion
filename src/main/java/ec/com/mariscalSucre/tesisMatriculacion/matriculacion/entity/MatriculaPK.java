@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
 @Embeddable
@@ -15,16 +17,17 @@ public class MatriculaPK implements Serializable {
 
 	@SequenceGenerator(allocationSize = 1, name = "MATRICULA_MATRICULAID_GENERATOR", sequenceName = "MATRICULA_MATRICULAID_SEQ")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MATRICULA_MATRICULAID_GENERATOR")
-	@Column(name = "matriculaid", unique = true, nullable = false)
+	@Column(name = "matriculaid", nullable = false)
 	private Integer matricula;
 
-	@Column(name = "periodoid", unique = true, nullable = false, length = 10)
-	private String periodo;
+	@OneToOne
+	@JoinColumn(name = "periodoid", nullable = false)
+	private Periodo periodo;
 
 	public MatriculaPK() {
 	}
 
-	public MatriculaPK(Integer matricula, String periodo) {
+	public MatriculaPK(Integer matricula, Periodo periodo) {
 		this.matricula = matricula;
 		this.periodo = periodo;
 	}
@@ -37,11 +40,11 @@ public class MatriculaPK implements Serializable {
 		this.matricula = matricula;
 	}
 
-	public String getPeriodo() {
+	public Periodo getPeriodo() {
 		return periodo;
 	}
 
-	public void setPeriodo(String periodo) {
+	public void setPeriodo(Periodo periodo) {
 		this.periodo = periodo;
 	}
 

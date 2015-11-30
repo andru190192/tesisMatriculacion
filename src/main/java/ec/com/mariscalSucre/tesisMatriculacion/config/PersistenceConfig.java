@@ -29,14 +29,14 @@ public class PersistenceConfig {
 
 		String nombreServidor = "localhost";
 		String puertoServidor = "5432";
-		String nombreBaseDatos = "prueba";
+		String nombreBaseDatos = "mariscalSucre";
 		String username = "mariscalSucre";
 		String password = "12345";
 
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("org.postgresql.Driver");
-		dataSource.setUrl("jdbc:" + lenguajeBaseDatos + "://" + nombreServidor
-				+ ":" + puertoServidor + "/" + nombreBaseDatos);
+		dataSource.setUrl(
+				"jdbc:" + lenguajeBaseDatos + "://" + nombreServidor + ":" + puertoServidor + "/" + nombreBaseDatos);
 		dataSource.setUsername(username);
 		dataSource.setPassword(password);
 
@@ -52,8 +52,7 @@ public class PersistenceConfig {
 	Properties hibernateProperties() {
 		return new Properties() {
 			{
-				setProperty("hibernate.dialect",
-						"org.hibernate.dialect.PostgreSQLDialect");
+				setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
 				setProperty("hibernate.show_sql", "true");
 				setProperty("hibernate.default_schema", "matriculacion");
 			}

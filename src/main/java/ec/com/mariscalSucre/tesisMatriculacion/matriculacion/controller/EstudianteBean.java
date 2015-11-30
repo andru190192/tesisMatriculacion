@@ -72,8 +72,21 @@ public class EstudianteBean implements Serializable {
 		estudianteService.insertar(persona);
 	}
 
+	public void actualizar(ActionEvent actionEvent) {
+		estudianteService.actualizar(persona);
+		listaPersonasEstudiantes = new ArrayList<Persona>();
+	}
+
+	public void eliminar(ActionEvent actionEvent) {
+		estudianteService.eliminar(persona);
+	}
+
 	public void cargarInsertar() {
 		limpiarObjetos();
+	}
+
+	public void cargarEditar() {
+		cargarCiudades();
 	}
 
 	public void comprobarPersona() {

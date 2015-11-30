@@ -84,7 +84,7 @@ public class PersonaServiceImpl implements PersonaService, Serializable {
 			persona.setPassword(generarClave(clave1));
 			personaDao.actualizar(persona);
 			presentaMensaje(FacesMessage.SEVERITY_INFO, "CAMBIO DE PASSWORD EXITOSO");
-			redireccionar("/negosys/logout.jsf");
+			redireccionar("../../logout.jsf");
 		}
 	}
 

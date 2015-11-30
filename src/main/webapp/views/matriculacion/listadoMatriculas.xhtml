@@ -1,0 +1,148 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+	<ui:define name="title">Matricula</ui:define>
+	<ui:define name="content">
+		<p:panel id="panelPrincipal" header="Listado de Matriculas">
+			<h:form id="formDataTable">
+				<p:dataTable id="tablaMatriculas" var="matricula" scrollable="true"
+					reflow="true" value="#{matriculaBean.listaMatriculas}"
+					paginator="true" rows="10"
+					paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+					paginatorPosition="bottom"
+					rowStyleClass="#{matricula.activo eq true ? null:'desactivo'}"
+					emptyMessage="#{msg['lbl.mensajeTabla']}">
+					<f:facet name="header">
+						<p:tooltip for="btnNuevo" value="#{msg['lbl.insertar']}" />
+						<p:commandButton update=":formNuevo"
+							oncomplete="mostarPanelInsertar('')"
+							action="#{matriculaBean.cargarInsertar}" id="btnNuevo"
+							icon="#{msg['i.nuevo']}" />
+					</f:facet>
+					<p:column headerText="Matricula #"
+						filterBy="#{matricula.id.matricula}" filterMatchMode="contains">
+						<p:outputLabel value="#{matricula.id.matricula}" />
+					</p:column>
+					<p:column headerText="Periodo">
+						<p:outputLabel value="#{matricula.id.periodo.nombre}" />
+					</p:column>
+					<p:column headerText="Cedula"
+						filterBy="#{matricula.estudiante.persona.cedula}"
+						filterMatchMode="contains">
+						<p:outputLabel value="#{matricula.estudiante.persona.cedula}" />
+					</p:column>
+					<p:column headerText="Nombre"
+						filterBy="#{matricula.estudiante.persona.apellido} #{matricula.estudiante.persona.nombre}}"
+						filterMatchMode="contains">
+						<p:outputLabel
+							value="#{matricula.estudiante.persona.apellido} #{matricula.estudiante.persona.nombre}" />
+					</p:column>
+					<p:column headerText="Grado">
+						<p:outputLabel value="#{matricula.grado.nombre}" />
+					</p:column>
+					<p:column headerText="Fecha">
+						<p:outputLabel value="#{matricula.fecha}">
+							<f:convertDateTime dateStyle="full" locale="es_EC"
+								pattern="EEEE, d MMMM yyyy HH:mm:ss" timeStyle="long"
+								type="both" timeZone="America/Guayaquil" />
+						</p:outputLabel>
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		</p:panel>
+
+		<p:panel id="panelInsertar" header="#{msg['lbl.insertar']}"
+			styleClass="DispNone">
+			<h:form id="formNuevo">
+				<p:outputLabel value="Los campos marcados con * son Obligatorios"
+					styleClass="DispBlock" />
+				<div class="divDatosIzq50">
+					<div id="datosEstudiante" class="divDatosIzq50">
+						<p:outputLabel value="Datos Estudiante" styleClass="subTitulos" />
+						<p:outputLabel value="* Cédula/RUC" for="cedula"
+							styleClass="DispBlock" />
+						<p:autoComplete id="autoCompletarEstudianteMatricula"
+							scrollHeight="200" effect="drop"
+							placeholder="MINIMO 3 CARACTERES"
+							emptyMessage="NO HAY DATOS A MOSTRAR" minQueryLength="3"
+							maxResults="20" value="#{matriculaBean.estudianteMatricula}"
+							completeMethod="#{matriculaBean.obtenerEstudiateMatriculaPorBusqueda}"
+							styleClass="DispBlock Wid90 autoCompletar">
+							<p:ajax event="itemSelect" id="prueba"
+								listener="#{matriculaBean.cargarEstudianteMatricula}"
+								update="autoCompletarEstudianteMatricula, :mensaje" />
+						</p:autoComplete>
+						<p:outputLabel value="* Apellidos" for="apellidos"
+							styleClass="DispBlock" />
+						<p:inputText id="apellidos"
+							value="#{estudianteBean.persona.apellido}"
+							onblur="this.value = this.value.toUpperCase()"
+							styleClass="DispBlock Wid90">
+						</p:inputText>
+						<p:outputLabel value="* Nombres" for="nombres"
+							styleClass="DispBlock" />
+						<p:inputText id="nombres" value="#{estudianteBean.persona.nombre}"
+							onblur="this.value = this.value.toUpperCase()"
+							styleClass="DispBlock Wid90">
+						</p:inputText>
+						<p:outputLabel value="* Provincia" for="comboProvincia"
+							styleClass="DispBlock" />
+						<p:selectOneMenu id="comboProvincia" filter="true"
+							filterMatchMode="contains"
+							value="#{estudianteBean.persona.ciudad.provincia}"
+							styleClass="DispBlock Wid90">
+							<f:selectItem itemLabel="Escoja una Provincia" />
+							<f:selectItems value="#{estudianteBean.listaProvincias}"
+								var="provincia" itemValue="#{provincia}"
+								itemLabel="#{provincia.nombre}" />
+							<p:ajax event="change"
+								listener="#{estudianteBean.cargarCiudades}" update="comboCiudad" />
+						</p:selectOneMenu>
+						<p:outputLabel value="* Ciudad" for="comboCiudad"
+							styleClass="DispBlock" />
+						<p:selectOneMenu id="comboCiudad" filter="true"
+							filterMatchMode="contains"
+							value="#{estudianteBean.persona.ciudad.id}"
+							styleClass="DispBlock Wid90">
+							<f:selectItem itemLabel="Escoja una Ciudad" />
+							<f:selectItems value="#{estudianteBean.listaCiudades}"
+								var="ciudad" itemValue="#{ciudad.id}"
+								itemLabel="#{ciudad.nombre}" />
+						</p:selectOneMenu>
+						<p:outputLabel value="Fecha Nacimiento" for="fechaNacimiento"
+							styleClass="DispBlock" />
+						<p:calendar id="fechaNacimiento"
+							value="#{estudianteBean.persona.fechaNacimiento}"
+							styleClass="DispBlock Wid90" />
+						<p:outputLabel value="Direccion" for="direccion"
+							styleClass="DispBlock" />
+						<p:inputText id="direccion" rows="2"
+							onblur="this.value = this.value.toUpperCase()"
+							value="#{estudianteBean.persona.direccion}"
+							styleClass="DispBlock Wid90" />
+						<p:outputLabel value="# Carpeta" for="carpeta"
+							styleClass="DispBlock" />
+						<p:inputText id="carpeta"
+							value="#{estudianteBean.persona.estudiante.folio}"
+							onblur="this.value = this.value.toUpperCase();"
+							styleClass="DispBlock Wid90" />
+						<p:outputLabel value="Escuela Anterior" for="escuela"
+							styleClass="DispBlock" />
+						<p:inputText id="escuela"
+							onblur="this.value = this.value.toUpperCase()"
+							value="#{estudianteBean.persona.estudiante.escuelaProcede}"
+							styleClass="DispBlock Wid90" />
+						<p:outputLabel value="Observaciones" for="observaciones"
+							styleClass="DispBlock" />
+						<p:inputTextarea id="observaciones" rows="2"
+							value="#{estudianteBean.persona.estudiante.observaciones}"
+							onblur="this.value = this.value.toUpperCase();"
+							styleClass="DispBlock Wid90" />
+					</div>
+				</div>
+			</h:form>
+		</p:panel>
+	</ui:define>
+</ui:composition>
