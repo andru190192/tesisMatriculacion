@@ -214,4 +214,15 @@ public class EstudianteServiceImpl implements EstudianteService, Serializable {
 		return lista;
 	}
 
+	public List<String> obtenerListaEstudiantesAutoComplete(
+			String criterioEstudianteBusqueda) {
+		List<String> list = new ArrayList<String>();
+		List<Persona> lista = obtener(criterioEstudianteBusqueda, 0);
+		if (!lista.isEmpty())
+			for (Persona p : lista)
+				list.add(p.getCiudad().getNombre() + " - " + p.getCedula()
+						+ " - " + p.getApellido() + " " + p.getNombre());
+		return list;
+	}
+
 }
