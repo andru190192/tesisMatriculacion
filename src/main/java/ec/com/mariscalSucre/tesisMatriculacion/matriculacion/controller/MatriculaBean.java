@@ -57,7 +57,11 @@ public class MatriculaBean implements Serializable {
 	}
 
 	public void insertar(ActionEvent actionEvent) {
-		// matriculaService.insertarActualizar(matricula);
+		System.out.println(matricula.getEstudiante());
+		System.out.println(matricula.getEstudiante().getId());
+		System.out.println(matricula.getGrado().getId());
+		System.out.println(matricula.getId().getPeriodo().getId());
+		matriculaService.insertarActualizar(matricula);
 	}
 
 	public void cargarInsertar() {

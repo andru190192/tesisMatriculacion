@@ -11,16 +11,16 @@ public interface MatriculaService {
 	@Transactional()
 	public List<Matricula> obtener();
 
-//	@Transactional
-//	public Matricula insertarActualizar(Matricula matricula);
+	@Transactional
+	public Matricula insertarActualizar(Matricula matricula);
 
-//	@Transactional
-//	public boolean insertar(Matricula matricula);
-//
-//	@Transactional
-//	public boolean actualizar(Matricula matricula);
+	@Transactional
+	public boolean insertar(Matricula matricula);
 
-	// @Transactional
-	// public boolean comprobarIndices(Integer periodoid, Integer estudianteid);
+	@Transactional
+	public boolean actualizar(Matricula matricula);
+
+	 @Transactional
+	 public boolean comprobarIndices(Integer periodoid, Integer estudianteid);
 
 }
