@@ -24,15 +24,13 @@ public interface EstudianteService {
 	public List<Persona> obtener();
 
 	@Transactional
-	public List<Persona> obtener(String criterioEstudianteBusqueda,
-			Integer estudianteId);
+	public List<Persona> obtener(String criterioEstudianteBusqueda, Integer estudianteId);
 
 	@Transactional(readOnly = true)
 	public List<Persona> obtenerActivos();
 
 	@Transactional
-	public List<Persona> obtenerTodosPorBusqueda(
-			String criterioEstudianteBusqueda);
+	public List<Persona> obtenerTodosPorBusqueda(String criterioEstudianteBusqueda);
 
 	@Transactional
 	public Estudiante obtenerEstudiantePorCedula(String cedula);
@@ -46,7 +44,10 @@ public interface EstudianteService {
 	@Transactional
 	public Persona obtenerPorPersonaId(Integer personaId);
 
-	public List<String> obtenerListaEstudiantesAutoComplete(
-			String criterioEstudianteBusqueda);
+	@Transactional
+	public List<String> obtenerListaEstudiantesAutoComplete(String criterioEstudianteBusqueda);
+
+	@Transactional
+	public Estudiante cargarEstudiante(String estudiante);
 
 }

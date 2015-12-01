@@ -58,90 +58,52 @@
 			<h:form id="formNuevo">
 				<p:outputLabel value="Los campos marcados con * son Obligatorios"
 					styleClass="DispBlock" />
-				<div class="divDatosIzq50">
-					<div id="datosEstudiante" class="divDatosIzq50">
-						<p:outputLabel value="Datos Estudiante" styleClass="subTitulos" />
-						<p:outputLabel value="* Cédula/RUC" for="cedula"
-							styleClass="DispBlock" />
-						<p:autoComplete id="autoCompletarEstudianteMatricula"
-							scrollHeight="200" effect="drop"
-							placeholder="MINIMO 3 CARACTERES"
-							emptyMessage="NO HAY DATOS A MOSTRAR" minQueryLength="3"
-							maxResults="20" value="#{matriculaBean.estudianteMatricula}"
-							completeMethod="#{matriculaBean.obtenerEstudiateMatriculaPorBusqueda}"
-							styleClass="DispBlock Wid90 autoCompletar">
-							<p:ajax event="itemSelect" id="prueba"
-								listener="#{matriculaBean.cargarEstudianteMatricula}"
-								update="autoCompletarEstudianteMatricula, :mensaje" />
-						</p:autoComplete>
-						<p:outputLabel value="* Apellidos" for="apellidos"
-							styleClass="DispBlock" />
-						<p:inputText id="apellidos"
-							value="#{estudianteBean.persona.apellido}"
-							onblur="this.value = this.value.toUpperCase()"
-							styleClass="DispBlock Wid90">
-						</p:inputText>
-						<p:outputLabel value="* Nombres" for="nombres"
-							styleClass="DispBlock" />
-						<p:inputText id="nombres" value="#{estudianteBean.persona.nombre}"
-							onblur="this.value = this.value.toUpperCase()"
-							styleClass="DispBlock Wid90">
-						</p:inputText>
-						<p:outputLabel value="* Provincia" for="comboProvincia"
-							styleClass="DispBlock" />
-						<p:selectOneMenu id="comboProvincia" filter="true"
-							filterMatchMode="contains"
-							value="#{estudianteBean.persona.ciudad.provincia}"
-							styleClass="DispBlock Wid90">
-							<f:selectItem itemLabel="Escoja una Provincia" />
-							<f:selectItems value="#{estudianteBean.listaProvincias}"
-								var="provincia" itemValue="#{provincia}"
-								itemLabel="#{provincia.nombre}" />
-							<p:ajax event="change"
-								listener="#{estudianteBean.cargarCiudades}" update="comboCiudad" />
-						</p:selectOneMenu>
-						<p:outputLabel value="* Ciudad" for="comboCiudad"
-							styleClass="DispBlock" />
-						<p:selectOneMenu id="comboCiudad" filter="true"
-							filterMatchMode="contains"
-							value="#{estudianteBean.persona.ciudad.id}"
-							styleClass="DispBlock Wid90">
-							<f:selectItem itemLabel="Escoja una Ciudad" />
-							<f:selectItems value="#{estudianteBean.listaCiudades}"
-								var="ciudad" itemValue="#{ciudad.id}"
-								itemLabel="#{ciudad.nombre}" />
-						</p:selectOneMenu>
-						<p:outputLabel value="Fecha Nacimiento" for="fechaNacimiento"
-							styleClass="DispBlock" />
-						<p:calendar id="fechaNacimiento"
-							value="#{estudianteBean.persona.fechaNacimiento}"
-							styleClass="DispBlock Wid90" />
-						<p:outputLabel value="Direccion" for="direccion"
-							styleClass="DispBlock" />
-						<p:inputText id="direccion" rows="2"
-							onblur="this.value = this.value.toUpperCase()"
-							value="#{estudianteBean.persona.direccion}"
-							styleClass="DispBlock Wid90" />
-						<p:outputLabel value="# Carpeta" for="carpeta"
-							styleClass="DispBlock" />
-						<p:inputText id="carpeta"
-							value="#{estudianteBean.persona.estudiante.folio}"
-							onblur="this.value = this.value.toUpperCase();"
-							styleClass="DispBlock Wid90" />
-						<p:outputLabel value="Escuela Anterior" for="escuela"
-							styleClass="DispBlock" />
-						<p:inputText id="escuela"
-							onblur="this.value = this.value.toUpperCase()"
-							value="#{estudianteBean.persona.estudiante.escuelaProcede}"
-							styleClass="DispBlock Wid90" />
-						<p:outputLabel value="Observaciones" for="observaciones"
-							styleClass="DispBlock" />
-						<p:inputTextarea id="observaciones" rows="2"
-							value="#{estudianteBean.persona.estudiante.observaciones}"
-							onblur="this.value = this.value.toUpperCase();"
-							styleClass="DispBlock Wid90" />
-					</div>
+				<div id="datosEstudiante">
+					<p:outputLabel value="Datos Estudiante" styleClass="subTitulos" />
+					<p:outputLabel value="* Cédula/RUC"
+						for="autoCompletarEstudianteMatricula" styleClass="DispBlock" />
+					<p:autoComplete id="autoCompletarEstudianteMatricula"
+						scrollHeight="200" effect="drop" placeholder="MINIMO 3 CARACTERES"
+						emptyMessage="NO HAY DATOS A MOSTRAR" minQueryLength="3"
+						maxResults="20" value="#{matriculaBean.estudianteMatricula}"
+						completeMethod="#{matriculaBean.obtenerEstudianteMatriculaPorBusqueda}"
+						styleClass="DispBlock Wid90 autoCompletar">
+						<p:ajax event="itemSelect" id="prueba"
+							listener="#{matriculaBean.cargarEstudianteMatricula}"
+							update="autoCompletarEstudianteMatricula, :mensaje" />
+					</p:autoComplete>
+					<p:outputLabel value="* Periodo" for="comboPeriodo"
+						styleClass="DispBlock" />
+					<p:selectOneMenu id="comboPeriodo" filter="true"
+						filterMatchMode="contains"
+						value="#{matriculaBean.matricula.id.periodo.id}"
+						styleClass="DispBlock Wid90">
+						<f:selectItem itemLabel="Escoja un Periodo" />
+						<f:selectItems value="#{matriculaBean.listaPeriodos}"
+							var="periodo" itemValue="#{periodo.id}"
+							itemLabel="#{periodo.nombre}" />
+					</p:selectOneMenu>
+					<p:outputLabel value="* Grado" for="comboGrado"
+						styleClass="DispBlock" />
+					<p:selectOneMenu id="comboGrado" filter="true"
+						filterMatchMode="contains"
+						value="#{matriculaBean.matricula.grado}"
+						styleClass="DispBlock Wid90">
+						<f:selectItem itemLabel="Escoja un Grado" />
+						<f:selectItems value="#{matriculaBean.listaGrados}" var="grado"
+							itemValue="#{grado}" itemLabel="#{grado.nombre}" />
+					</p:selectOneMenu>
 				</div>
+				<div class="EmptyBox10"></div>
+				<p:separator />
+				<p:commandButton value="#{msg['btn.guardar']}"
+					update=":formDataTable ,:mensaje, formNuevo"
+					oncomplete="comprobarInsertar(xhr, status, args, '')"
+					id="btnNuevoAceptar" icon="#{msg['i.guardar']}"
+					actionListener="#{matriculaBean.insertar}" styleClass="GreenButton" />
+				<p:commandButton value="#{msg['btn.cancelar']}"
+					oncomplete="mostarPanelInsertar('')" id="btnNuevolimpiar"
+					icon="#{msg['i.cancelar']}" process="@this" styleClass="RedButton" />
 			</h:form>
 		</p:panel>
 	</ui:define>

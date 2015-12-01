@@ -8,7 +8,19 @@ import ec.com.mariscalSucre.tesisMatriculacion.matriculacion.entity.Matricula;
 
 public interface MatriculaService {
 
-	@Transactional(readOnly = true)
+	@Transactional()
 	public List<Matricula> obtener();
+
+//	@Transactional
+//	public Matricula insertarActualizar(Matricula matricula);
+
+//	@Transactional
+//	public boolean insertar(Matricula matricula);
+//
+//	@Transactional
+//	public boolean actualizar(Matricula matricula);
+
+	// @Transactional
+	// public boolean comprobarIndices(Integer periodoid, Integer estudianteid);
 
 }

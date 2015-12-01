@@ -5,19 +5,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.event.ActionEvent;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import ec.com.mariscalSucre.tesisMatriculacion.matriculacion.entity.Estudiante;
 import ec.com.mariscalSucre.tesisMatriculacion.matriculacion.entity.Matricula;
 import ec.com.mariscalSucre.tesisMatriculacion.matriculacion.entity.MatriculaPK;
+import ec.com.mariscalSucre.tesisMatriculacion.matriculacion.entity.Periodo;
 import ec.com.mariscalSucre.tesisMatriculacion.matriculacion.entity.Persona;
-import ec.com.mariscalSucre.tesisMatriculacion.matriculacion.entityAux.PersonaCedulaNombre;
+import ec.com.mariscalSucre.tesisMatriculacion.matriculacion.entityAux.Grado;
 import ec.com.mariscalSucre.tesisMatriculacion.matriculacion.service.EstudianteService;
 import ec.com.mariscalSucre.tesisMatriculacion.matriculacion.service.MatriculaService;
+import ec.com.mariscalSucre.tesisMatriculacion.matriculacion.service.PeriodoService;
 
 @Controller
 @Scope("session")
@@ -31,36 +33,57 @@ public class MatriculaBean implements Serializable {
 	@Autowired
 	private EstudianteService estudianteService;
 
+	@Autowired
+	private PeriodoService periodoService;
+
 	private List<Matricula> listaMatriculas;
 
 	private Matricula matricula;
 
 	private String estudianteMatricula;
 
+	private String estudiante;
+
+	private List<Periodo> listaPeriodos;
+
 	public MatriculaBean() {
 	}
 
 	@PostConstruct
 	public void init() {
+		limpiarObjetos();
 		listaMatriculas = new ArrayList<>();
-
 		listaMatriculas = matriculaService.obtener();
+	}
+
+	public void insertar(ActionEvent actionEvent) {
+		// matriculaService.insertarActualizar(matricula);
 	}
 
 	public void cargarInsertar() {
 		limpiarObjetos();
+		listaPeriodos = new ArrayList<>();
+		listaPeriodos = periodoService.obtenerTodos();
+	}
+
+	public void cargarEditar() {
+		cargarPeriodos();
+	}
+
+	public void cargarPeriodos() {
+		listaPeriodos = new ArrayList<>();
+		listaPeriodos = periodoService.obtenerPorId(matricula.getId().getPeriodo().getId());
 	}
 
 	public void limpiarObjetos() {
 		matricula = new Matricula();
 		matricula.setEstudiante(new Estudiante());
 		matricula.setId(new MatriculaPK());
+		matricula.getId().setPeriodo(new Periodo());
 	}
 
-	public List<String> obtenerEstudianteMatriculaPorBusqueda(
-			String criterioEstudianteBusqueda) {
-		List<String> lista = estudianteService
-				.obtenerListaEstudiantesAutoComplete(criterioEstudianteBusqueda);
+	public List<String> obtenerEstudianteMatriculaPorBusqueda(String criterioEstudianteBusqueda) {
+		List<String> lista = estudianteService.obtenerListaEstudiantesAutoComplete(criterioEstudianteBusqueda);
 		if (lista.size() == 1) {
 			estudianteMatricula = (lista.get(0));
 			cargarEstudianteMatricula();
@@ -69,30 +92,15 @@ public class MatriculaBean implements Serializable {
 	}
 
 	public void cargarEstudianteMatricula() {
-		matricula.setEstudiante((estudianteService.cargarEstudiante(estudianteMatricula));
+		matricula.setEstudiante(estudianteService.cargarEstudiante(estudianteMatricula));
 	}
 
 	public void cargarEstudiante(Persona persona) {
 		Persona p = estudianteService.obtenerPorPersonaId(persona.getId());
 		matricula.setEstudiante(p.getEstudiante());
-		factura.setClienteFactura(p.getCliente());
-		cliente = p.getCliente().getId().toString().concat("-")
-				.concat(p.getCedula()).concat("-").concat(p.getApellido())
-				.concat(" ").concat(p.getNombre());
-		clienteFactura = cliente;
-		if (listaLocales.size() == 1) {
-			Local local = listaLocales.get(0);
-			establecimiento = local
-					.getNombre()
-					.concat("(")
-					.concat(local
-							.getCodigoEstablecimiento()
-							.concat(")")
-							.concat(" - PUNTO EMISIÓN(")
-							.concat(String.format("%03d",
-									local.getPuntoEmisionFactura()).concat(")")));
 
-			
+		estudiante = p.getEstudiante().getId().toString().concat("-").concat(p.getCedula()).concat("-")
+				.concat(p.getApellido()).concat(" ").concat(p.getNombre());
 	}
 
 	public List<Matricula> getListaMatriculas() {
@@ -109,6 +117,34 @@ public class MatriculaBean implements Serializable {
 
 	public void setEstudianteMatricula(String estudianteMatricula) {
 		this.estudianteMatricula = estudianteMatricula;
+	}
+
+	public String getEstudiante() {
+		return estudiante;
+	}
+
+	public void setEstudiante(String estudiante) {
+		this.estudiante = estudiante;
+	}
+
+	public Grado[] getListaGrados() {
+		return Grado.values();
+	}
+
+	public List<Periodo> getListaPeriodos() {
+		return listaPeriodos;
+	}
+
+	public void setListaPeriodos(List<Periodo> listaPeriodos) {
+		this.listaPeriodos = listaPeriodos;
+	}
+
+	public Matricula getMatricula() {
+		return matricula;
+	}
+
+	public void setMatricula(Matricula matricula) {
+		this.matricula = matricula;
 	}
 
 }
