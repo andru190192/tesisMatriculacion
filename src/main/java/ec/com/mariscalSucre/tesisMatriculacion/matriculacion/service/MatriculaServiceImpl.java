@@ -29,18 +29,16 @@ public class MatriculaServiceImpl implements MatriculaService, Serializable {
 	}
 
 	public Matricula insertarActualizar(Matricula matricula) {
-		System.out.println(matricula.getEstudiante());
-		System.out.println(matricula.getEstudiante().getId());
-		System.out.println(matricula.getGrado().getId());
-		System.out.println(matricula.getId().getPeriodo().getId());
+		System.out.println(obternerNumeroMatricula(matricula.getPeriodo().getId()));
+		matricula.setMatricula(obternerNumeroMatricula(matricula.getPeriodo().getId()) + 1);
 		boolean retorno = false;
-		if (matricula.getId() == null) {
-			retorno = insertar(matricula);
-			System.out.println("insertar");
-		} else {
-			retorno = actualizar(matricula);
-			System.out.println("actualizar");
-		}
+		// if (matricula.getId().getMatricula() == null) {
+		retorno = insertar(matricula);
+		// System.out.println("insertar");
+		// } else {
+		// retorno = actualizar(matricula);
+		// System.out.println("actualizar");
+		// }
 		if (retorno)
 			presentaMensaje(FacesMessage.SEVERITY_INFO, "ESTUDIANTE INSERTADO", "cerrar", true);
 		return matricula;
@@ -59,27 +57,30 @@ public class MatriculaServiceImpl implements MatriculaService, Serializable {
 	public boolean insertar(Matricula matricula) {
 		boolean retorno = false;
 
-		if (matricula.getId().getPeriodo().getId() == null || matricula.getId().getPeriodo().getId() == 0)
+		if (matricula.getPeriodo().getId() == null || matricula.getPeriodo().getId() == 0)
 			presentaMensaje(FacesMessage.SEVERITY_INFO, "ESCOJA UN PERIODO");
 
-		else if (comprobarIndices(matricula.getId().getPeriodo().getId(), matricula.getEstudiante().getId()))
-			presentaMensaje(FacesMessage.SEVERITY_INFO,
-					"EL ESTUDIANTE YA ESTA MATRICULADO EN EL PERIODO LECTIVO ESCOGIDO", "cerrar", false);
-		else {
-			matricula.setActivo(true);
-			matricula.setFecha(new Timestamp(new Date().getTime()));
-			matriculaDao.insertar(matricula);
-			retorno = true;
-		}
+		// else if (comprobarIndices(matricula.getId().getPeriodo().getId(),
+		// matricula.getEstudiante().getId()))
+		// presentaMensaje(FacesMessage.SEVERITY_INFO,
+		// "EL ESTUDIANTE YA ESTA MATRICULADO EN EL PERIODO LECTIVO ESCOGIDO",
+		// "cerrar", false);
+		// else {
+		matricula.setActivo(true);
+		matricula.setFecha(new Timestamp(new Date().getTime()));
+		System.out.println("entre");
+		matriculaDao.insertar(matricula);
+		retorno = true;
+
 		return retorno;
 	}
 
 	public boolean actualizar(Matricula matricula) {
 		boolean retorno = false;
 
-		if (matricula.getId().getPeriodo().getId() == null || matricula.getId().getPeriodo().getId() == 0)
+		if (matricula.getPeriodo().getId() == null || matricula.getId() == 0)
 			presentaMensaje(FacesMessage.SEVERITY_INFO, "ESCOJA UNA PERIODO");
-		else if (comprobarIndices(matricula.getId().getPeriodo().getId(), matricula.getEstudiante().getId()))
+		else if (comprobarIndices(matricula.getId(), matricula.getEstudiante().getId()))
 			presentaMensaje(FacesMessage.SEVERITY_INFO,
 					"EL ESTUDIANTE YA ESTA MATRICULADO EN EL PERIODO LECTIVO ESCOGIDO", "cerrar", false);
 		else {
@@ -88,6 +89,16 @@ public class MatriculaServiceImpl implements MatriculaService, Serializable {
 			retorno = true;
 		}
 		return retorno;
+	}
+
+	public Integer obternerNumeroMatricula(Integer periodo) {
+		List<Matricula> lista = matriculaDao.obtenerPorHql(
+				"select m from Matricula m inner join m.periodo p where p.id =?1 order by m.matricula desc",
+				new Object[] { periodo });
+		if (lista.isEmpty())
+			return 0;
+		else
+			return lista.get(0).getMatricula();
 	}
 
 }

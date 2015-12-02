@@ -67,7 +67,7 @@ public class GenericDaoImpl<T, K extends Serializable> implements
 
 	public Object contar(Class<T> type) {
 		return session().createCriteria(type.getName())
-				.setProjection(Projections.count("id")).uniqueResult();
+.setProjection(Projections.count("id")).uniqueResult();
 	}
 
 	public Object contar(String consulta, Object[] valores) {

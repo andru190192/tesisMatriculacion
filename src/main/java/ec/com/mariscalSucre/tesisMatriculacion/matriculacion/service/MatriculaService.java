@@ -20,7 +20,10 @@ public interface MatriculaService {
 	@Transactional
 	public boolean actualizar(Matricula matricula);
 
-	 @Transactional
-	 public boolean comprobarIndices(Integer periodoid, Integer estudianteid);
+	@Transactional
+	public boolean comprobarIndices(Integer periodoid, Integer estudianteid);
+
+	@Transactional
+	public Integer obternerNumeroMatricula(Integer periodo);
 
 }

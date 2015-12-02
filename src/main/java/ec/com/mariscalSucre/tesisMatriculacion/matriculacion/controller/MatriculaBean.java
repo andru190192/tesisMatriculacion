@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 
 import ec.com.mariscalSucre.tesisMatriculacion.matriculacion.entity.Estudiante;
 import ec.com.mariscalSucre.tesisMatriculacion.matriculacion.entity.Matricula;
-import ec.com.mariscalSucre.tesisMatriculacion.matriculacion.entity.MatriculaPK;
 import ec.com.mariscalSucre.tesisMatriculacion.matriculacion.entity.Periodo;
 import ec.com.mariscalSucre.tesisMatriculacion.matriculacion.entity.Persona;
 import ec.com.mariscalSucre.tesisMatriculacion.matriculacion.entityAux.Grado;
@@ -57,11 +56,9 @@ public class MatriculaBean implements Serializable {
 	}
 
 	public void insertar(ActionEvent actionEvent) {
-		System.out.println(matricula.getEstudiante());
-		System.out.println(matricula.getEstudiante().getId());
-		System.out.println(matricula.getGrado().getId());
-		System.out.println(matricula.getId().getPeriodo().getId());
 		matriculaService.insertarActualizar(matricula);
+		listaMatriculas = matriculaService.obtener();
+		estudianteMatricula = "";
 	}
 
 	public void cargarInsertar() {
@@ -76,14 +73,13 @@ public class MatriculaBean implements Serializable {
 
 	public void cargarPeriodos() {
 		listaPeriodos = new ArrayList<>();
-		listaPeriodos = periodoService.obtenerPorId(matricula.getId().getPeriodo().getId());
+		listaPeriodos = periodoService.obtenerPorId(matricula.getPeriodo().getId());
 	}
 
 	public void limpiarObjetos() {
 		matricula = new Matricula();
 		matricula.setEstudiante(new Estudiante());
-		matricula.setId(new MatriculaPK());
-		matricula.getId().setPeriodo(new Periodo());
+		matricula.setPeriodo(new Periodo());
 	}
 
 	public List<String> obtenerEstudianteMatriculaPorBusqueda(String criterioEstudianteBusqueda) {

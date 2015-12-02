@@ -22,11 +22,11 @@
 							icon="#{msg['i.nuevo']}" />
 					</f:facet>
 					<p:column headerText="Matricula #"
-						filterBy="#{matricula.id.matricula}" filterMatchMode="contains">
-						<p:outputLabel value="#{matricula.id.matricula}" />
+						filterBy="#{matricula.matricula}" filterMatchMode="contains">
+						<p:outputLabel value="#{matricula.matricula}" />
 					</p:column>
 					<p:column headerText="Periodo">
-						<p:outputLabel value="#{matricula.id.periodo.nombre}" />
+						<p:outputLabel value="#{matricula.periodo.nombre}" />
 					</p:column>
 					<p:column headerText="Cedula"
 						filterBy="#{matricula.estudiante.persona.cedula}"
@@ -76,7 +76,7 @@
 						styleClass="DispBlock" />
 					<p:selectOneMenu id="comboPeriodo" filter="true"
 						filterMatchMode="contains"
-						value="#{matriculaBean.matricula.id.periodo.id}"
+						value="#{matriculaBean.matricula.periodo.id}"
 						styleClass="DispBlock Wid90">
 						<f:selectItem itemLabel="Escoja un Periodo" />
 						<f:selectItems value="#{matriculaBean.listaPeriodos}"
