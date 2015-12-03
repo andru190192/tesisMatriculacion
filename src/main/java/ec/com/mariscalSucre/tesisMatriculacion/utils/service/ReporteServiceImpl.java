@@ -1,11 +1,6 @@
 package ec.com.mariscalSucre.tesisMatriculacion.utils.service;
 
 import static ec.com.mariscalSucre.tesisMatriculacion.utils.UtilsAplicacion.presentaMensaje;
-import static ec.com.mariscalSucre.tesisMatriculacion.utils.UtilsArchivos.getRutaImagen;
-import static ec.com.mariscalSucre.tesisMatriculacion.utils.UtilsArchivos.getRutaLogo;
-import static ec.com.mariscalSucre.tesisMatriculacion.utils.UtilsArchivos.getRutaReportes;
-import static ec.com.mariscalSucre.tesisMatriculacion.utils.UtilsArchivos.leerImagen;
-import static ec.com.mariscalSucre.tesisMatriculacion.utils.UtilsJRXML.compilarJRXML;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -21,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Service;
 
-import ec.com.mariscalSucre.tesisMatriculacion.utils.UtilsAplicacion;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -41,63 +35,58 @@ public class ReporteServiceImpl implements ReporteService {
 	private <T> JasperPrint generadorReporte(String nombreReporte, Map<String, Object> parametros,
 			List<T> listaReporte) {
 		try {
-			compilarJRXML(getRutaReportes(), nombreReporte + ".jrxml");
-			return JasperFillManager.fillReport(getRutaReportes() + nombreReporte + ".jasper", parametros,
-					new JRBeanCollectionDataSource(listaReporte));
+			return JasperFillManager
+					.fillReport(
+							FacesContext.getCurrentInstance().getExternalContext().getRealPath("/reportes") + "/"
+									+ nombreReporte + ".jasper",
+							parametros, new JRBeanCollectionDataSource(listaReporte));
 		} catch (JRException e) {
 			e.printStackTrace();
 		}
 		return new JasperPrint();
 	}
 
-	public <T> void generarReportePDF(List<T> listaReporte, Map<String, Object> parametros, String nombreReporte) {
+	public <T> void generarReportePDF(List<T> listaReporte, Map<String, Object> parametros, String nombreReporte,
+			String nombre) {
 		facesContext = FacesContext.getCurrentInstance();
 		if (listaReporte == null || listaReporte.isEmpty())
-			presentaMensaje(FacesMessage.SEVERITY_ERROR, "NO HAY DATOS PARA IMPRIMIR");
+			presentaMensaje(FacesMessage.SEVERITY_ERROR, "No hay datos para imprimir");
 		else {
-			parametros.put("logo", leerImagen(null, getRutaLogo()));
-			parametros.put("paginaWeb", UtilsAplicacion.paginaWeb);
-			parametros.put("SUBREPORT_DIR", getRutaReportes());
-			respondeServidor(generadorReporte(nombreReporte, parametros, listaReporte), nombreReporte);
+			// parametros.put("logo", leerImagen(null, getRutaLogo()));
+			parametros.put("SUBREPORT_DIR",
+					FacesContext.getCurrentInstance().getExternalContext().getRealPath("/reportes") + "/");
+			respondeServidor(generadorReporte(nombreReporte, parametros, listaReporte), nombre);
 		}
 	}
 
-	public <T> void generarReportePDFSencillo(List<T> listaReporte, Map<String, Object> parametros,
-			String nombreReporte) {
+	public <T> File generarReportePDFFile(List<T> listaReporte, Map<String, Object> parametros, String nombreReporte,
+			String nombre) {
 		facesContext = FacesContext.getCurrentInstance();
-		respondeServidor(generadorReporte(nombreReporte, parametros, listaReporte), nombreReporte);
-	}
-
-	public File respondeServidorCorreo(JasperPrint jasperPrint, String nombreReporte) {
-		try {
-			File file = File.createTempFile(nombreReporte, ".pdf");
-
-			JRPdfExporter exporter = new JRPdfExporter();
-			exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
-			exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(file));
-			SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
-			exporter.setConfiguration(configuration);
-
-			exporter.exportReport();
-			return file;
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (listaReporte == null || listaReporte.isEmpty())
+			presentaMensaje(FacesMessage.SEVERITY_ERROR, "No hay datos para imprimir");
+		else {
+			// parametros.put("logo", leerImagen(null, getRutaLogo()));
+			parametros.put("SUBREPORT_DIR",
+					FacesContext.getCurrentInstance().getExternalContext().getRealPath("/reportes") + "/");
+			return responderFile(generadorReporte(nombreReporte, parametros, listaReporte), nombre);
 		}
 		return null;
 	}
 
-	public <T> void generarReporteXLS(List<T> listaReporte, Map<String, Object> parametros, String nombreReporte) {
+	public <T> void generarReporteXLS(List<T> listaReporte, Map<String, Object> parametros, String nombreReporte,
+			String nombre) {
 		facesContext = FacesContext.getCurrentInstance();
 		try {
-			parametros.put("logo", leerImagen(null, getRutaImagen() + "logo.png"));
-			parametros.put("paginaWeb", UtilsAplicacion.paginaWeb);
-			parametros.put("SUBREPORT_DIR", getRutaReportes());
+			// parametros.put("logo", leerImagen(null, getRutaImagen() +
+			// "logo.png"));
+			parametros.put("SUBREPORT_DIR",
+					FacesContext.getCurrentInstance().getExternalContext().getRealPath("/reportes") + "/");
 
 			JasperPrint jasperPrint = generadorReporte(nombreReporte, parametros, listaReporte);
 
 			JRXlsExporter exporter = new JRXlsExporter();
 			exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
-			exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(nombreReporte + ".xls"));
+			exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(nombre + ".xls"));
 			SimpleXlsReportConfiguration configuration = new SimpleXlsReportConfiguration();
 			configuration.setOnePagePerSheet(false);
 			configuration.setDetectCellType(true);
@@ -108,11 +97,11 @@ public class ReporteServiceImpl implements ReporteService {
 			HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
 
 			response.setContentType("application/vnd.ms-excel");
-			response.addHeader("Content-disposition", "attachment; filename=" + nombreReporte + ".xls");
+			response.addHeader("Content-disposition", "attachment; filename=" + nombre + ".xls");
 
 			ServletOutputStream servletStream = response.getOutputStream();
 
-			File f = new File(nombreReporte + ".xls");
+			File f = new File(nombre + ".xls");
 			InputStream in = new FileInputStream(f);
 			int bit = 256;
 			while (bit >= 0) {
@@ -131,31 +120,82 @@ public class ReporteServiceImpl implements ReporteService {
 		}
 	}
 
-	public <T> void generarReporteXLSSencillo(List<T> listaReporte, Map<String, Object> parametros,
-			String nombreReporte) {
+	public void generarReporteXLSSencillo(List<String> listaReporte, String nombreReporte, String UA, String C,
+			String tituloRepor, int numCol) {
 		facesContext = FacesContext.getCurrentInstance();
 		try {
-			JasperPrint jasperPrint = generadorReporte(nombreReporte, parametros, listaReporte);
+			respondeServidor(nombreReporte + ".xlsx", 1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
-			JRXlsExporter exporter = new JRXlsExporter();
+	public void generarReporteCSV(List<String> listaReporte, String nombreReporte) {
+		facesContext = FacesContext.getCurrentInstance();
+		try {
+			respondeServidor(nombreReporte + ".csv", 2);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public File responderFile(JasperPrint jasperPrint, String nombreReporte) {
+		try {
+			File file = File.createTempFile(nombreReporte, ".pdf");
+
+			JRPdfExporter exporter = new JRPdfExporter();
 			exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
-			exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(nombreReporte + ".xls"));
-			SimpleXlsReportConfiguration configuration = new SimpleXlsReportConfiguration();
-			configuration.setOnePagePerSheet(false);
-			configuration.setDetectCellType(true);
-			configuration.setCollapseRowSpan(false);
+			exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(file));
+			SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
 			exporter.setConfiguration(configuration);
+
 			exporter.exportReport();
+			return file;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
-			HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
+	public void respondeServidor(String nombreReporte, int tipo) {
+		ExternalContext econtext = facesContext.getExternalContext();
+		try {
+			HttpServletResponse response = (HttpServletResponse) econtext.getResponse();
 
-			response.setContentType("application/vnd.ms-excel");
-			response.addHeader("Content-disposition", "attachment; filename=" + nombreReporte + ".xls");
+			if (tipo == 1)
+				response.setContentType("application/vnd.ms-excel");
+			if (tipo == 2)
+				response.setContentType("text/plain");
+			response.addHeader("Content-disposition", "attachment; filename=" + nombreReporte);
 
 			ServletOutputStream servletStream = response.getOutputStream();
 
-			File f = new File(nombreReporte + ".xls");
+			File f = new File(nombreReporte);
 			InputStream in = new FileInputStream(f);
+			int bit = 256;
+			while (bit >= 0) {
+				bit = in.read();
+				servletStream.write(bit);
+			}
+			servletStream.flush();
+			servletStream.close();
+			in.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		facesContext.responseComplete();
+	}
+
+	public <T> void responderServidor(File archivo, String nombreReporte) {
+		ExternalContext econtext = facesContext.getExternalContext();
+		try {
+			HttpServletResponse response = (HttpServletResponse) econtext.getResponse();
+			response.setContentType("application/pdf");
+			response.addHeader("Content-disposition", "attachment; filename=" + nombreReporte + ".pdf");
+
+			ServletOutputStream servletStream = response.getOutputStream();
+
+			InputStream in = new FileInputStream(archivo);
 			int bit = 256;
 			while (bit >= 0) {
 				bit = in.read();

@@ -2,6 +2,7 @@ package ec.com.mariscalSucre.tesisMatriculacion.matriculacion.controller;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -19,6 +20,7 @@ import ec.com.mariscalSucre.tesisMatriculacion.matriculacion.entityAux.Grado;
 import ec.com.mariscalSucre.tesisMatriculacion.matriculacion.service.EstudianteService;
 import ec.com.mariscalSucre.tesisMatriculacion.matriculacion.service.MatriculaService;
 import ec.com.mariscalSucre.tesisMatriculacion.matriculacion.service.PeriodoService;
+import ec.com.mariscalSucre.tesisMatriculacion.utils.service.ReporteService;
 
 @Controller
 @Scope("session")
@@ -34,6 +36,9 @@ public class MatriculaBean implements Serializable {
 
 	@Autowired
 	private PeriodoService periodoService;
+
+	@Autowired
+	private ReporteService reporteService;
 
 	private List<Matricula> listaMatriculas;
 
@@ -101,6 +106,13 @@ public class MatriculaBean implements Serializable {
 
 		estudiante = p.getEstudiante().getId().toString().concat("-").concat(p.getCedula()).concat("-")
 				.concat(p.getApellido()).concat(" ").concat(p.getNombre());
+	}
+
+	public void imprimir() {
+		List<Matricula> listaReporte = new ArrayList<Matricula>();
+		listaReporte.add(matricula);
+		reporteService.generarReportePDF(listaReporte, new HashMap<String, Object>(), "Matricula",
+				"carnet" + matricula.getEstudiante().getPersona().getCedula());
 	}
 
 	public List<Matricula> getListaMatriculas() {
