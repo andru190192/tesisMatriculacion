@@ -40,7 +40,7 @@ public class MatriculaServiceImpl implements MatriculaService, Serializable {
 		// System.out.println("actualizar");
 		// }
 		if (retorno)
-			presentaMensaje(FacesMessage.SEVERITY_INFO, "ESTUDIANTE INSERTADO", "cerrar", true);
+			presentaMensaje(FacesMessage.SEVERITY_INFO, "MATRICULA INSERTADA", "cerrar", true);
 		return matricula;
 	}
 
