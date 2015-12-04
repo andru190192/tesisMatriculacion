@@ -71,9 +71,9 @@ public class BitacoraAspect implements Serializable {
 		}
 		String cedula = SecurityContextHolder.getContext().getAuthentication().getName();
 		System.out.println(cedula);
-		if (cedula.compareTo("0123456789") != 0)
-			bitacoraDao.insertar(new Bitacora(new Timestamp((new Date()).getTime()), mensaje,
-					personaService.obtenerPorCedula(cedula)));
+		// if (cedula.compareTo("0123456789") != 0)
+		// bitacoraDao.insertar(new Bitacora(new Timestamp((new
+		// Date()).getTime()), mensaje, new Persona()));
 	}
 
 	@After("execution(public * ec.com.mariscalSucre.tesisMatriculacion.seguridad.service.MenuService.obtenerPorUsuario(..)) ")

@@ -20,10 +20,11 @@ public class Parametro implements Serializable {
 	private Integer id;
 	private String ruc;
 	private String razonSocial;
-	private String nombreComercial;
+	private String rector;
+	private String cedulaRector;
+	private String secretaria;
+	private String cedulaScretaria;
 	private String direccion;
-	private Integer tipoRedondeo;
-	private Integer precisionDecimal;
 	private String email;
 	private TipoServidor tipoServidor;
 	private String passEmail;
@@ -31,25 +32,26 @@ public class Parametro implements Serializable {
 	public Parametro() {
 	}
 
-	public Parametro(Integer id, String ruc, String razonSocial, String nombreComercial, String direccion,
-			Integer tipoRedondeo, Integer precisionDecimal, String email, TipoServidor tipoServidor, String passEmail) {
+	public Parametro(Integer id, String ruc, String razonSocial, String rector, String cedulaRector, String secretaria,
+			String cedulaScretaria, String direccion, String email, TipoServidor tipoServidor, String passEmail) {
 		this.id = id;
 		this.ruc = ruc;
 		this.razonSocial = razonSocial;
-		this.nombreComercial = nombreComercial;
+		this.setRector(rector);
+		this.setCedulaRector(cedulaRector);
+		this.setSecretaria(secretaria);
+		this.setCedulaScretaria(cedulaScretaria);
 		this.direccion = direccion;
-		this.tipoRedondeo = tipoRedondeo;
-		this.precisionDecimal = precisionDecimal;
 		this.email = email;
 		this.tipoServidor = tipoServidor;
 		this.passEmail = passEmail;
 	}
 
 	@Id
-	@SequenceGenerator(allocationSize = 1, name = "PARAMETRO_PARAMETERID_GENERATOR", sequenceName = "PARAMETRO_PARAMETERID_SEQ")
+	@SequenceGenerator(allocationSize = 1, name = "PARAMETRO_PARAMETEROID_GENERATOR", sequenceName = "PARAMETRO_PARAMETEROID_SEQ")
 	// @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PARAMETRO_PARAMETERID_GENERATOR")
-	@Column(name = "parameterid", unique = true, nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PARAMETRO_PARAMETEROID_GENERATOR")
+	@Column(name = "parametroid", unique = true, nullable = false)
 	public Integer getId() {
 		return id;
 	}
@@ -59,29 +61,29 @@ public class Parametro implements Serializable {
 		return this.ruc;
 	}
 
-	@Column(name = "razonsocial", nullable = false, length = 50)
+	@Column(name = "razonsocial", nullable = false)
 	public String getRazonSocial() {
 		return razonSocial;
 	}
 
-	@Column(name = "nombrecomercial", nullable = false, length = 50)
-	public String getNombreComercial() {
-		return nombreComercial;
+	@Column(name = "cedularector", nullable = false)
+	public String getCedulaRector() {
+		return cedulaRector;
+	}
+
+	@Column(name = "secretaria", nullable = false)
+	public String getSecretaria() {
+		return secretaria;
+	}
+
+	@Column(name = "cedulasecretaria", nullable = false)
+	public String getCedulaScretaria() {
+		return cedulaScretaria;
 	}
 
 	@Column(nullable = false, length = 100)
 	public String getDireccion() {
 		return this.direccion;
-	}
-
-	@Column(name = "tiporedondeo", nullable = false)
-	public Integer getTipoRedondeo() {
-		return tipoRedondeo;
-	}
-
-	@Column(name = "precisiondecimal", nullable = false)
-	public Integer getPrecisionDecimal() {
-		return precisionDecimal;
 	}
 
 	@Column(name = "email", length = 50)
@@ -112,16 +114,8 @@ public class Parametro implements Serializable {
 		this.id = id;
 	}
 
-	public void setNombreComercial(String nombreComercial) {
-		this.nombreComercial = nombreComercial;
-	}
-
 	public void setPassEmail(String passEmail) {
 		this.passEmail = passEmail;
-	}
-
-	public void setPrecisionDecimal(Integer precisionDecimal) {
-		this.precisionDecimal = precisionDecimal;
 	}
 
 	public void setRazonSocial(String razonSocial) {
@@ -132,12 +126,28 @@ public class Parametro implements Serializable {
 		this.ruc = ruc;
 	}
 
-	public void setTipoRedondeo(Integer tipoRedondeo) {
-		this.tipoRedondeo = tipoRedondeo;
-	}
-
 	public void setTipoServidor(TipoServidor tipoServidor) {
 		this.tipoServidor = tipoServidor;
+	}
+
+	public String getRector() {
+		return rector;
+	}
+
+	public void setRector(String rector) {
+		this.rector = rector;
+	}
+
+	public void setCedulaRector(String cedulaRector) {
+		this.cedulaRector = cedulaRector;
+	}
+
+	public void setSecretaria(String secretaria) {
+		this.secretaria = secretaria;
+	}
+
+	public void setCedulaScretaria(String cedulaScretaria) {
+		this.cedulaScretaria = cedulaScretaria;
 	}
 
 	@Override

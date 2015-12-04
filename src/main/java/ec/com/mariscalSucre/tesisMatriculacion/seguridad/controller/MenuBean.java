@@ -1,7 +1,6 @@
 package ec.com.mariscalSucre.tesisMatriculacion.seguridad.controller;
 
 import static ec.com.mariscalSucre.tesisMatriculacion.utils.UtilsAplicacion.redireccionar;
-import static ec.com.mariscalSucre.tesisMatriculacion.utils.UtilsMath.actualizar;
 
 import java.io.Serializable;
 import java.util.List;
@@ -102,7 +101,7 @@ public class MenuBean implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		actualizar(parametroService.obtener());
+		// actualizar(parametroService.obtener());
 		UtilsAplicacion.actualizarPaginaWeb("www.mariscalsucre.com");
 		Persona p = personaService
 				.obtenerActivoPorCedula(SecurityContextHolder.getContext().getAuthentication().getName());
