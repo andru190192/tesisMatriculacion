@@ -17,7 +17,7 @@ public class ParametroServiceImpl implements ParametroService {
 	}
 
 	public Parametro obtener() {
-		return parametroDao.obtenerPorId(Parametro.class, 1);
+		return parametroDao.obtenerPorHql("select p from Parametro p", new Object[] {}).get(0);
 	}
 
 }
