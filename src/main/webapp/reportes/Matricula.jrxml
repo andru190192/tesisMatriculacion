@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
 <!-- Created with Jaspersoft Studio version last-->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Matricula" pageWidth="210" pageHeight="176" orientation="Landscape" columnWidth="180" leftMargin="15" rightMargin="15" topMargin="15" bottomMargin="15" uuid="162f49b4-7ed4-4226-8bf6-365c56ea66f3">
+=======
+<!-- Created with Jaspersoft Studio version 6.1.1.final using JasperReports Library version 6.1.1  -->
+<!-- 2015-12-03T20:19:40 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Matricula" pageWidth="210" pageHeight="148" orientation="Landscape" columnWidth="180" leftMargin="15" rightMargin="15" topMargin="15" bottomMargin="15" uuid="162f49b4-7ed4-4226-8bf6-365c56ea66f3">
+>>>>>>> origin/master
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -224,6 +230,7 @@
 				</textElement>
 				<text><![CDATA[Rector]]></text>
 			</staticText>
+<<<<<<< HEAD
 			<image hAlign="Center">
 				<reportElement x="10" y="5" width="30" height="30" uuid="5f16aaac-c73f-46a9-a648-6d4311e39cee"/>
 				<imageExpression><![CDATA["../resources/imagenes/logo.png"]]></imageExpression>
@@ -264,6 +271,12 @@
 				</textElement>
 				<text><![CDATA[MARISCAL SUCRE]]></text>
 			</staticText>
+=======
+			<image>
+				<reportElement x="10" y="0" width="50" height="30" uuid="81ccb027-2f2e-4d16-bc3a-3d7f583f46f3"/>
+				<imageExpression><![CDATA["../resources/imagenes/logo.png"]]></imageExpression>
+			</image>
+>>>>>>> origin/master
 		</band>
 	</title>
 </jasperReport>
