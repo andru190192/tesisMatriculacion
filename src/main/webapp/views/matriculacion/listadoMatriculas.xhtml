@@ -48,7 +48,7 @@
 						<p:outputLabel
 							value="#{matricula.estudiante.persona.apellido} #{matricula.estudiante.persona.nombre}" />
 					</p:column>
-					<p:column headerText="Grado">
+					<p:column headerText="Grado" filterBy="#{matricula.grado.nombre}">
 						<p:outputLabel value="#{matricula.grado.nombre}" />
 					</p:column>
 					<p:column headerText="Fecha">

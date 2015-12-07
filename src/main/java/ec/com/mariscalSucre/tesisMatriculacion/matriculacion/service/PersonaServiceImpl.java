@@ -42,20 +42,12 @@ public class PersonaServiceImpl implements PersonaService, Serializable {
 
 	public boolean actualizar(Persona persona) {
 		boolean retorno = false;
-
 		Set<ConstraintViolation<Persona>> violations = validator.validate(persona);
 		if (violations.size() > 0)
 			for (ConstraintViolation<Persona> cv : violations)
 				presentaMensaje(FacesMessage.SEVERITY_INFO, cv.getMessage());
 		else if (persona.getCiudad().getId() == null || persona.getCiudad().getId() == 0)
 			presentaMensaje(FacesMessage.SEVERITY_INFO, "ESCOJA UNA CIUDAD");
-		// } else if (persona.getEmailPersonas().size() == 0) {
-		// presentaMensaje(FacesMessage.SEVERITY_INFO,
-		// "MENSAJE DEL SISTEMA", "DEBE INGRESAR AL MENOS UN EMAIL"));
-		// } else if (persona.getTelefonoPersonas().size() == 0) {
-		// presentaMensaje(FacesMessage.SEVERITY_INFO,
-		// "MENSAJE DEL SISTEMA",
-		// "DEBE INGRESAR AL MENOS UN TELÉFONO"));
 		else if (personaDao.comprobarIndices(Persona.class, "cedula", persona.getCedula(),
 				String.valueOf(persona.getId())))
 			presentaMensaje(FacesMessage.SEVERITY_INFO, "LA CÉDULA YA EXISTE", "cerrar", false);

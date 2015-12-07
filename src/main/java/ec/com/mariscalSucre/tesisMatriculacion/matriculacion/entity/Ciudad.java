@@ -103,7 +103,6 @@ public class Ciudad implements Serializable {
 	public Persona removePersona(Persona persona) {
 		getPersonas().remove(persona);
 		persona.setCiudad(null);
-
 		return persona;
 	}
 

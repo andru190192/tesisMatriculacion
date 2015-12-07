@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.1.1.final using JasperReports Library version 6.1.1  -->
-<!-- 2015-12-03T18:21:39 -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Matricula" pageWidth="210" pageHeight="148" orientation="Landscape" columnWidth="180" leftMargin="15" rightMargin="15" topMargin="15" bottomMargin="15" uuid="162f49b4-7ed4-4226-8bf6-365c56ea66f3">
+<!-- Created with Jaspersoft Studio version last-->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Matricula" pageWidth="210" pageHeight="176" orientation="Landscape" columnWidth="180" leftMargin="15" rightMargin="15" topMargin="15" bottomMargin="15" uuid="162f49b4-7ed4-4226-8bf6-365c56ea66f3">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="cm"/>
 	<property name="com.jaspersoft.studio.unit.pageWidth" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
 	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
@@ -48,7 +53,9 @@
 		<fieldDescription><![CDATA[periodo]]></fieldDescription>
 	</field>
 	<title>
-		<band height="147" splitType="Stretch">
+		<band height="145" splitType="Stretch">
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<staticText>
 				<reportElement mode="Opaque" x="10" y="94" width="50" height="12" backcolor="#FFFFFF" uuid="e2dd26aa-3855-484d-ae4c-4dd318bf401e">
 					<property name="local_mesure_unitwidth" value="pixel"/>
@@ -89,7 +96,7 @@
 				<imageExpression><![CDATA["../resources/imagenes/imagenPersona.png"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement mode="Opaque" x="70" y="66" width="50" height="12" backcolor="#FFFFFF" uuid="a0247320-2ece-4f2d-b763-a394ed8e83a4">
+				<reportElement mode="Opaque" x="70" y="66" width="109" height="12" backcolor="#FFFFFF" uuid="a0247320-2ece-4f2d-b763-a394ed8e83a4">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -124,7 +131,7 @@
 				<textFieldExpression><![CDATA[$F{estudiante}.getPersona().getCedula()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="70" y="94" width="50" height="12" backcolor="#FFFFFF" uuid="0a18d170-2042-4c37-a675-80400449f7ea">
+				<reportElement mode="Opaque" x="70" y="94" width="109" height="12" backcolor="#FFFFFF" uuid="0a18d170-2042-4c37-a675-80400449f7ea">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -159,7 +166,7 @@
 				<textFieldExpression><![CDATA[$F{estudiante}.getPersona().getApellido()+$F{estudiante}.getPersona().getNombre()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="70" y="40" width="50" height="12" backcolor="#FFFFFF" uuid="fb68bd50-3bfd-4f5c-99d1-ebd4f6af7693">
+				<reportElement mode="Opaque" x="70" y="40" width="109" height="12" backcolor="#FFFFFF" uuid="fb68bd50-3bfd-4f5c-99d1-ebd4f6af7693">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -194,28 +201,68 @@
 				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="10" y="137" width="50" height="1" uuid="66844483-f918-49d2-a699-63dcc4fab051">
+				<reportElement x="10" y="131" width="50" height="1" uuid="66844483-f918-49d2-a699-63dcc4fab051">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
 			</line>
 			<line>
-				<reportElement x="100" y="137" width="50" height="1" uuid="8863c0dd-568b-4c61-907f-202cc918f194">
+				<reportElement x="100" y="131" width="50" height="1" uuid="8863c0dd-568b-4c61-907f-202cc918f194">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
 			</line>
 			<staticText>
-				<reportElement x="99" y="137" width="51" height="10" uuid="d7fe7350-b726-4f8b-8c25-8c865c11b059"/>
+				<reportElement x="99" y="131" width="51" height="10" uuid="d7fe7350-b726-4f8b-8c25-8c865c11b059"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="7"/>
 				</textElement>
 				<text><![CDATA[Secretaria]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="10" y="137" width="51" height="10" uuid="712a23d3-6c3f-4eb4-908f-d8b47c7efeeb"/>
+				<reportElement x="10" y="131" width="51" height="10" uuid="712a23d3-6c3f-4eb4-908f-d8b47c7efeeb"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="7"/>
 				</textElement>
 				<text><![CDATA[Rector]]></text>
+			</staticText>
+			<image hAlign="Center">
+				<reportElement x="10" y="5" width="30" height="30" uuid="5f16aaac-c73f-46a9-a648-6d4311e39cee"/>
+				<imageExpression><![CDATA["../resources/imagenes/logo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement mode="Opaque" x="50" y="5" width="129" height="12" backcolor="#FFFFFF" uuid="5fb25aab-3a75-4591-9c72-23b29b137530">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="1">
+					<topPen lineWidth="0.1" lineStyle="Dashed" lineColor="#BAB8B8"/>
+					<leftPen lineWidth="0.1" lineStyle="Dashed" lineColor="#BAB8B8"/>
+					<bottomPen lineWidth="0.1" lineStyle="Dashed" lineColor="#BAB8B8"/>
+					<rightPen lineWidth="0.1" lineStyle="Dashed" lineColor="#BAB8B8"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="false"/>
+				</textElement>
+				<text><![CDATA[ESCUELA DE EDUCACION BASICA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="50" y="18" width="129" height="12" backcolor="#FFFFFF" uuid="dfed5076-724a-441f-8767-f27a39d4d5aa">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="1">
+					<topPen lineWidth="0.1" lineStyle="Dashed" lineColor="#BAB8B8"/>
+					<leftPen lineWidth="0.1" lineStyle="Dashed" lineColor="#BAB8B8"/>
+					<bottomPen lineWidth="0.1" lineStyle="Dashed" lineColor="#BAB8B8"/>
+					<rightPen lineWidth="0.1" lineStyle="Dashed" lineColor="#BAB8B8"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="false"/>
+				</textElement>
+				<text><![CDATA[MARISCAL SUCRE]]></text>
 			</staticText>
 		</band>
 	</title>
